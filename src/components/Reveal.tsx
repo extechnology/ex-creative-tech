@@ -1,4 +1,5 @@
 import { motion, type HTMLMotionProps } from "motion/react";
+import { Link } from "react-router-dom";
 import { type ReactNode } from "react";
 
 export function Reveal({
@@ -36,7 +37,7 @@ export function SplitWords({
   return (
     <span className={className} aria-label={text}>
       {words.map((w, i) => (
-        <span key={i} className="inline-block overflow-hidden align-bottom mr-[0.25em]">
+        <span key={i} className="inline-block overflow-hidden align-bottom mr-[0.22em]">
           <motion.span
             className="inline-block will-change-transform"
             initial={{ y: "110%" }}
@@ -56,6 +57,12 @@ export function SplitWords({
   );
 }
 
+/**
+ * MagneticButton supports:
+ *  - href="/..." → React Router <Link> (internal navigation)
+ *  - href="http..." / "mailto:..." → plain <a> (external)
+ *  - no href → <button>
+ */
 export function MagneticButton({
   children,
   onClick,
@@ -68,11 +75,12 @@ export function MagneticButton({
   href?: string;
 }) {
   const base =
-    "relative inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-colors overflow-hidden group";
+    "relative inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 overflow-hidden group";
   const styles =
     variant === "primary"
-      ? "bg-[color:var(--color-brand-a)] text-black hover:opacity-90"
-      : "border border-white/15 text-white hover:bg-white/5";
+      ? "bg-white text-black hover:opacity-85"
+      : "border border-white/15 text-white hover:bg-white/[0.06]";
+
   const inner = (
     <motion.span
       whileHover={{ scale: 1.03 }}
@@ -83,11 +91,10 @@ export function MagneticButton({
       {children}
     </motion.span>
   );
-  if (href)
-    return (
-      <a href={href} onClick={onClick}>
-        {inner}
-      </a>
-    );
-  return <button onClick={onClick}>{inner}</button>;
+
+  if (!href) return <button onClick={onClick}>{inner}</button>;
+
+  const isExternal = href.startsWith("http") || href.startsWith("mailto") || href.startsWith("#");
+  if (isExternal) return <a href={href} onClick={onClick}>{inner}</a>;
+  return <Link to={href} onClick={onClick}>{inner}</Link>;
 }
