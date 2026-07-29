@@ -317,7 +317,7 @@ function Marquee() {
    Companies
    ============================================================ */
 type Company = {
-  key: keyof typeof PALETTES;
+  key: Exclude<keyof typeof PALETTES, "parent">;
   code: string;
   name: string;
   tagline: string;
