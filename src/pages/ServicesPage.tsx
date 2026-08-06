@@ -4,7 +4,7 @@ import {
   ArrowUpRight, Code2, Bot, GraduationCap, Clapperboard,
   Cpu, Cloud, Database, Layers, Zap, Globe, Sparkles, Plus, Minus, CheckCircle2,
 } from "lucide-react";
-import PageHero from "@/components/shared/PageHero";
+import ServicesHero from "@/components/services/ServicesHero";
 import { SectionIntro } from "@/components/shared/SectionIntro";
 import { Reveal, MagneticButton } from "@/components/Reveal";
 
@@ -136,22 +136,17 @@ function ServiceRow({ svc, index }: { svc: typeof SERVICES[number]; index: numbe
 /* ── Main Services Page Component ──────────────────────────── */
 export default function ServicesPage() {
   return (
-    <div className="bg-[#050505]">
-      {/* Page Hero */}
-      <PageHero
-        eyebrow="Capabilities & Services"
-        headingLine1="Full-stack craft"
-        headingLine2="from concept to scale."
-        subtext="Four specialized studios under one roof. Strategy, design, engineering, AI, and education — all working as one synchronized team."
-        palette={{ a: "#00E5FF", b: "#0066FF", c: "#70D6FF", bg: "#030a1c" }}
-      >
-        <MagneticButton href="/contact">
-          Start a project <ArrowUpRight className="w-4 h-4 ml-1" />
-        </MagneticButton>
-      </PageHero>
+    <div className="bg-[#050505] text-white selection:bg-cyan-500 selection:text-black">
+      {/* 1. Hero Section */}
+      <ServicesHero />
 
-      {/* Accordion Capabilities List */}
-      <section className="relative py-24 md:py-32">
+      {/* Section Separator */}
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      </div>
+
+      {/* 2. Accordion Capabilities List */}
+      <section id="capabilities" className="relative py-24 md:py-32">
         <div className="w-[min(1280px,94vw)] mx-auto">
           <SectionIntro
             eyebrow="Our Core Capabilities"

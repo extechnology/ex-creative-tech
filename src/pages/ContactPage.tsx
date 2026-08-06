@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowUpRight, Mail, MapPin, Phone, ChevronDown, Send, CheckCircle2, Clock, Globe } from "lucide-react";
-import PageHero from "@/components/shared/PageHero";
+import ContactHero from "@/components/contact/ContactHero";
 import { SectionIntro } from "@/components/shared/SectionIntro";
 import { Reveal, MagneticButton } from "@/components/Reveal";
 
@@ -156,19 +156,17 @@ export default function ContactPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <div className="bg-[#050505]">
-      {/* Page Hero */}
-      <PageHero
-        eyebrow="Contact & Collaboration"
-        headingLine1="Let's build"
-        headingLine2="something together."
-        subtext="Have a project in mind, an architectural question, or an AI concept? Reach out — our team responds within 24 business hours."
-        palette={{ a: "#B537FF", b: "#6B00FF", c: "#E2ADFF", bg: "#0d041e" }}
-        minHeight="min-h-[65svh]"
-      />
+    <div className="bg-[#050505] text-white selection:bg-emerald-500 selection:text-black">
+      {/* 1. Hero Section */}
+      <ContactHero />
+
+      {/* Section Separator */}
+      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      </div>
 
       {/* Main Grid: Form + Info Cards */}
-      <section className="relative py-20 md:py-28">
+      <section id="contact-form" className="relative py-20 md:py-28">
         <div className="w-[min(1280px,94vw)] mx-auto grid lg:grid-cols-12 gap-12 items-start">
           {/* Left Column Info */}
           <div className="lg:col-span-5 flex flex-col gap-6">
@@ -212,7 +210,7 @@ export default function ContactPage() {
       </section>
 
       {/* Office Hubs Grid with Visual Cards */}
-      <section className="relative py-20 border-t border-white/[0.08]">
+      <section id="hubs" className="relative py-20 border-t border-white/[0.08]">
         <div className="w-[min(1280px,94vw)] mx-auto">
           <SectionIntro eyebrow="Global Presence" title="Our studio hubs." className="mb-10" />
           <div className="grid md:grid-cols-3 gap-6">
