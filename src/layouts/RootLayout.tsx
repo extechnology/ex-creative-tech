@@ -19,16 +19,11 @@ export default function RootLayout() {
       <ScrollProgress />
       <Nav />
 
-      {/* 
-        Main content sits above the fixed footer.
-        z-index: 1 ensures content scrolls OVER the footer (z-index: 0).
-        margin-bottom reveals the footer at end of scroll.
-      */}
       <main
         className="relative z-10 bg-[color:var(--color-background)] min-h-screen transition-colors duration-700"
         style={{ marginBottom: FOOTER_HEIGHT }}
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence initial={false} mode="popLayout">
           <motion.div
             key={location.pathname}
             initial={{ opacity: 0, y: 12 }}
