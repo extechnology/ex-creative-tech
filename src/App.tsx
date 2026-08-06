@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import RootLayout from "@/layouts/RootLayout";
+import PageLoader from "@/components/PageLoader";
 
 /* ── Lazy-loaded pages ─────────────────────────────────────── */
 const HomePage    = lazy(() => import("@/pages/HomePage"));
@@ -9,22 +10,6 @@ const ServicesPage = lazy(() => import("@/pages/ServicesPage"));
 const ContactPage = lazy(() => import("@/pages/ContactPage"));
 
 /* ── Fullscreen loading fallback ───────────────────────────── */
-function PageLoader() {
-  return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]">
-      <div className="font-display text-white text-6xl tracking-tight">
-        EX<span className="text-white/30">/</span>
-      </div>
-      <div className="mt-8 w-40 h-px bg-white/10 overflow-hidden rounded-full relative">
-        <div
-          className="absolute inset-y-0 left-0 w-1/3 bg-white/60 rounded-full"
-          style={{ animation: "shimmer 1.4s ease-in-out infinite" }}
-        />
-      </div>
-    </div>
-  );
-}
-
 /* ── 404 ───────────────────────────────────────────────────── */
 function NotFound() {
   return (

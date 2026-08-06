@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Reveal, MagneticButton } from "@/components/Reveal";
 import Plasma from "../components/Plasma";
+import PageLoader from "@/components/PageLoader";
 
 
 
@@ -19,50 +20,6 @@ const PALETTES = {
   edu: { a: "#A855F7", b: "#7C3AED", c: "#E9D5FF", bg: "#0a0616" },
   bot: { a: "#25D366", b: "#22C55E", c: "#86EFAC", bg: "#03110a" },
 } as const;
-
-/* ── Loader ────────────────────────────────────────────────── */
-function Loader({ onDone }: { onDone: () => void }) {
-  const [pct, setPct] = useState(0);
-  const [gone, setGone] = useState(false);
-  useState(() => {
-    let v = 0;
-    const id = setInterval(() => {
-      v += Math.random() * 9 + 4;
-      if (v >= 100) {
-        v = 100;
-        clearInterval(id);
-        setTimeout(() => { setGone(true); setTimeout(onDone, 700); }, 350);
-      }
-      setPct(Math.floor(v));
-    }, 90);
-    return () => clearInterval(id);
-  });
-
-  return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      animate={{ opacity: gone ? 0 : 1, y: gone ? "-100%" : 0 }}
-      transition={{ duration: 0.8, ease: [0.7, 0, 0.2, 1] }}
-      className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-[#050505] noise"
-    >
-      <div className="absolute inset-0 grid-bg opacity-40" />
-      <motion.div
-        className="font-display text-white text-6xl md:text-8xl tracking-tight"
-        initial={{ letterSpacing: "0.4em", opacity: 0 }}
-        animate={{ letterSpacing: "-0.02em", opacity: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-      >
-        EX Creative Technology<span className="text-white/30">/</span>
-      </motion.div>
-      <div className="mt-10 h-[2px] w-56 md:w-80 bg-white/10 overflow-hidden rounded-full">
-        <motion.div className="h-full bg-white rounded-full" style={{ width: `${pct}%` }} />
-      </div>
-      <div className="mt-4 font-mono text-[11px] text-white/40 tabular-nums">
-        {String(pct).padStart(3, "0")} / 100 — booting creative engine
-      </div>
-    </motion.div>
-  );
-}
 
 /* ── Hero Section — full-screen video player ───────────────── */
 function Hero() {
@@ -790,7 +747,7 @@ export default function HomePage() {
 
   return (
     <div className="relative bg-[color:var(--color-background)] transition-colors duration-700 overflow-x-hidden">
-      {loading && <Loader onDone={() => setLoading(false)} />}
+      {loading && <PageLoader onDone={() => setLoading(false)} />}
       <Hero />
       <Ticker />
       <Companies />
