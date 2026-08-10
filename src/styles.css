@@ -167,9 +167,15 @@ body {
 }
 
 @utility glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  backdrop-filter: blur(18px) saturate(140%);
+  background: rgba(10, 10, 10, 0.55);
+
   -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+
+  /* Helps browser create a proper compositing layer */
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: backdrop-filter;
 }
 
 @utility aurora {
@@ -193,69 +199,122 @@ body {
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes marquee-rev {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes float-slow {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0); }
-  50%       { transform: translate3d(0, -14px, 0) rotate(2deg); }
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0);
+  }
+
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(2deg);
+  }
 }
 
 @keyframes shine {
-  0%   { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes orbit {
-  from { transform: rotate(0deg) translateX(var(--r, 120px)) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(var(--r, 120px)) rotate(-360deg); }
+  from {
+    transform: rotate(0deg) translateX(var(--r, 120px)) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(var(--r, 120px)) rotate(-360deg);
+  }
 }
 
 @keyframes pulse-ring {
-  0%   { transform: scale(0.8); opacity: 0.7; }
-  100% { transform: scale(2.2); opacity: 0; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
 }
 
 @keyframes shimmer {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes counter {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @utility animate-marquee {
   animation: marquee 40s linear infinite;
 }
+
 @utility animate-marquee-rev {
   animation: marquee-rev 35s linear infinite;
 }
+
 @utility animate-float-slow {
   animation: float-slow 8s ease-in-out infinite;
 }
+
 @utility animate-shine {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in oklab, var(--color-brand-a) 40%, transparent),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      color-mix(in oklab, var(--color-brand-a) 40%, transparent),
+      transparent);
   background-size: 200% 100%;
   animation: shine 3s linear infinite;
 }
+
 @utility animate-shimmer {
   animation: shimmer 2s ease-in-out infinite;
 }
@@ -271,6 +330,7 @@ body {
   transform: translate3d(-50%, -50%, 0);
   will-change: transform;
 }
+
 .cursor-dot {
   width: 6px;
   height: 6px;
@@ -278,6 +338,7 @@ body {
   background: var(--color-brand-a);
   mix-blend-mode: difference;
 }
+
 .cursor-ring {
   width: 38px;
   height: 38px;
@@ -290,6 +351,7 @@ body {
 }
 
 @media (pointer: coarse) {
+
   .cursor-dot,
   .cursor-ring {
     display: none;
@@ -297,16 +359,30 @@ body {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: #050505; }
-::-webkit-scrollbar-thumb { background: #1a1a1f; border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: #2a2a30; }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a1a1f;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2a30;
+}
 
 /* Page transitions */
 .page-enter {
   opacity: 0;
   transform: translateY(12px);
 }
+
 .page-enter-active {
   opacity: 1;
   transform: translateY(0);
@@ -351,9 +427,11 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
