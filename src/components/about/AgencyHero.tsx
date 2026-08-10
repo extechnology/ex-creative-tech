@@ -25,7 +25,7 @@ export default function AgencyHero() {
             >
               <span className="flex h-2 w-2 rounded-full bg-gradient-to-r from-red-500 to-purple-500 animate-pulse" />
               <Sparkles className="w-3.5 h-3.5 text-red-400" />
-              <span className="tracking-wide">About EX-Creative</span>
+              <span className="tracking-wide">Technology</span>
             </motion.div>
 
             {/* Huge Heading */}
