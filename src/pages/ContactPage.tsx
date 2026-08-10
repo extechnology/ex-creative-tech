@@ -1,17 +1,8 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { ArrowUpRight, Mail, MapPin, Phone, Plus, Minus, Send, User, Building2, MessageSquare } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { ArrowRight, Minus, Plus, Upload, type LucideIcon } from "lucide-react";
 import ContactHero from "@/components/contact/ContactHero";
-import { MagneticButton } from "@/components/Reveal";
 
-/* ── Contact Info Cards ────────────────────────────────────── */
-const CONTACT_INFO = [
-  { Icon: Mail,   label: "Email Support", value: "hello@ex-creative.tech",       href: "mailto:hello@ex-creative.tech", tag: "Fastest Response" },
-  { Icon: Phone,  label: "Direct Line",   value: "+91 000 000 0000",             href: "tel:+910000000000",             tag: "Mon - Fri 9am-6pm" },
-  { Icon: MapPin, label: "Studio Hubs",   value: "Mumbai · Bengaluru · Remote",  href: "#",                             tag: "Global Distributed" },
-];
-
-/* ── FAQ Items ─────────────────────────────────────────────── */
 const FAQ = [
   {
     q: "How quickly can you kick off a new project?",
@@ -31,202 +22,338 @@ const FAQ = [
   },
 ];
 
-/* ── Section backdrop: glow only, no grid ──────────────────── */
-function SectionBackdrop() {
+const IDEA_TAGS = ["Technology", "Automation", "Business", "Digital Innovation"];
+
+function IdeaProgramBackdrop() {
+  const stars = [
+    ["9%", "17%", "2px"],
+    ["22%", "9%", "3px"],
+    ["31%", "86%", "2px"],
+    ["43%", "24%", "2px"],
+    ["48%", "58%", "3px"],
+    ["56%", "92%", "2px"],
+    ["67%", "18%", "2px"],
+    ["78%", "72%", "3px"],
+    ["88%", "48%", "2px"],
+    ["95%", "12%", "2px"],
+  ];
+
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div
-        className="absolute left-1/2 -top-40 -translate-x-1/2 w-[50rem] h-[50rem] rounded-full"
-        style={{ background: "radial-gradient(circle, var(--color-brand-a)22, transparent 62%)", filter: "blur(85px)" }}
-      />
-    </div>
-  );
-}
-
-/* ── Tight intro block (eyebrow + copy, small controlled gap) ─ */
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <span className="w-5 h-px bg-white/30" />
-      <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-white/45">{children}</span>
-    </div>
-  );
-}
-
-/* ── Floating glass field ──────────────────────────────────── */
-function Field({
-  id, label, type, placeholder, value, onChange, Icon, textarea = false, rows,
-}: {
-  id: string; label: string; type?: string; placeholder: string; value: string;
-  onChange: (v: string) => void; Icon: React.ComponentType<{ className?: string }>;
-  textarea?: boolean; rows?: number;
-}) {
-  const [focused, setFocused] = useState(false);
-  return (
-    <label className="block group">
-      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/35">{label}</span>
-      <div
-        className="mt-2 flex items-start gap-3 rounded-xl px-4 py-3 bg-white/[0.03] border transition-all duration-300"
-        style={{
-          borderColor: focused ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.08)",
-          boxShadow: focused ? "0 0 0 3px rgba(255,255,255,0.06)" : "none",
-        }}
+      {/* emerald/teal ambient blobs — matches hero's mainBlobClass */}
+      <div className="absolute -left-64 top-0 h-[48rem] w-[32rem] bg-[radial-gradient(ellipse_at_center,rgba(52,211,153,0.18),transparent_62%)] blur-3xl" />
+      <div className="absolute -right-72 bottom-[-18rem] h-[38rem] w-[44rem] bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.15),transparent_66%)] blur-3xl" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_16%,rgba(5,5,8,0.72)_80%)]" />
+      <div className="absolute inset-0 grid-bg opacity-[0.035]" />
+      <svg
+        aria-hidden="true"
+        className="absolute left-0 top-24 h-[520px] w-[520px] opacity-25"
+        viewBox="0 0 520 520"
       >
-        <Icon className={`w-4 h-4 mt-0.5 shrink-0 transition-colors ${focused ? "text-white/70" : "text-white/25"}`} />
-        {textarea ? (
-          <textarea
-            id={id}
-            rows={rows ?? 4}
-            required
-            placeholder={placeholder}
-            value={value}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            onChange={(e) => onChange(e.target.value)}
-            className="w-full bg-transparent outline-none text-sm text-white placeholder:text-white/20 resize-none leading-relaxed"
-          />
-        ) : (
-          <input
-            id={id}
-            type={type ?? "text"}
-            required
-            placeholder={placeholder}
-            value={value}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            onChange={(e) => onChange(e.target.value)}
-            className="w-full bg-transparent outline-none text-sm text-white placeholder:text-white/20"
-          />
-        )}
+        <path
+          d="M0 384 C86 250 184 188 298 162"
+          fill="none"
+          stroke="rgba(52, 211, 153, 0.35)"
+          strokeWidth="1"
+        />
+        <path
+          d="M26 430 C104 330 202 278 356 248"
+          fill="none"
+          stroke="rgba(255, 255, 255, 0.13)"
+          strokeDasharray="4 12"
+          strokeWidth="1"
+        />
+      </svg>
+      {stars.map(([left, top, size]) => (
+        <span
+          key={`${left}-${top}`}
+          className="absolute rounded-full bg-white/35 shadow-[0_0_12px_rgba(255,255,255,0.35)]"
+          style={{ left, top, width: size, height: size }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function OpenCallIntro() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
+      className="max-w-7xl"
+    >
+      <div
+        className="mb-7 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase text-emerald-300/75"
+        style={{ letterSpacing: "0.28em" }}
+      >
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_16px_rgba(52,211,153,0.95)]" />
+        <span>Open Call · Ideas Program</span>
       </div>
+
+      <h2
+        className="font-sans text-[clamp(3rem,5vw,4.75rem)] font-semibold leading-[1.04] text-white"
+        style={{ letterSpacing: 0 }}
+      >
+        Have an idea that could make a{" "}
+        <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+          difference?
+        </span>
+      </h2>
+
+      <p className="mt-7 max-w-[455px] text-[15px] font-medium leading-7 text-slate-400">
+        Share your concept with us. Whether it&apos;s a new technology solution, business idea,
+        automation concept, or digital innovation — let&apos;s explore its potential together.
+      </p>
+
+      <div className="mt-9 flex flex-wrap gap-3">
+        {IDEA_TAGS.map((tag) => (
+          <span
+            key={tag}
+            className="rounded-full border border-white/10 bg-white/[0.045] px-4 py-2 text-xs font-semibold text-white/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-12 flex items-center gap-5">
+        <span className="h-px w-14 bg-gradient-to-r from-transparent via-emerald-400/70 to-transparent" />
+        <span className="text-sm font-bold text-white">
+          Turn Your Idea Into{" "}
+          <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+            Possibility
+          </span>
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
+function FormLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="mb-2 block font-mono text-[11px] font-bold text-emerald-300/72">
+      <span className="text-white/28">//</span> {children}
+    </span>
+  );
+}
+
+function IdeaInput({
+  label,
+  id,
+  placeholder,
+  type = "text",
+  value,
+  onChange,
+}: {
+  label: string;
+  id: string;
+  placeholder: string;
+  type?: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label className="block">
+      <FormLabel>{label}</FormLabel>
+      <input
+        id={id}
+        type={type}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
+        className="h-11 w-full rounded-xl border border-white/[0.075] bg-white/[0.045] px-4 text-sm font-semibold text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-300/45 focus:bg-white/[0.065] focus:shadow-[0_0_0_3px_rgba(52,211,153,0.08)]"
+      />
     </label>
   );
 }
 
-/* ── Form Component: black card, white glow border ─────────── */
-function ContactForm() {
-  const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", company: "", project: "" });
+function IdeaTextarea({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  return (
+    <label className="block">
+      <FormLabel>Tell us about your idea</FormLabel>
+      <textarea
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder="What problem does it solve? How does it work? Who is it for?"
+        rows={4}
+        className="min-h-[88px] w-full resize-none rounded-xl border border-white/[0.075] bg-white/[0.045] px-4 py-3 text-sm font-semibold leading-relaxed text-white outline-none transition placeholder:text-slate-500 focus:border-emerald-300/45 focus:bg-white/[0.065] focus:shadow-[0_0_0_3px_rgba(52,211,153,0.08)]"
+      />
+    </label>
+  );
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
+function UploadField({ fileName }: { fileName: string }) {
+  return (
+    <label className="block cursor-pointer">
+      <FormLabel>Upload file (optional)</FormLabel>
+      <div className="flex min-h-[66px] items-center gap-4 rounded-xl border border-dashed border-white/[0.08] bg-white/[0.04] px-4 transition hover:border-emerald-300/35 hover:bg-white/[0.055]">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-300/10 text-emerald-300 shadow-[0_0_22px_rgba(52,211,153,0.13)]">
+          <Upload className="h-4 w-4" />
+        </span>
+        <span className="min-w-0">
+          <span className="block truncate text-sm font-bold text-white/78">
+            {fileName || "Drop a file or click to browse"}
+          </span>
+          <span className="mt-0.5 block text-xs font-medium text-slate-500">
+            PDF, DOCX, PNG, JPG — up to 10MB
+          </span>
+        </span>
+      </div>
+      <input type="file" className="sr-only" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" />
+    </label>
+  );
+}
+
+function IdeaSubmissionCard() {
+  const [form, setForm] = useState({
+    name: "",
+    contact: "",
+    title: "",
+    idea: "",
+  });
+  const [fileName, setFileName] = useState("");
+
+  const update = (key: keyof typeof form) => (value: string) => {
+    setForm((current) => ({ ...current, [key]: value }));
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
   };
 
   return (
-    <div
-      className="relative rounded-3xl bg-[#070707] p-8 sm:p-10 overflow-hidden"
-      style={{
-        border: "1px solid rgba(255,255,255,0.16)",
-        boxShadow:
-          "0 0 0 1px rgba(255,255,255,0.03), 0 0 30px rgba(255,255,255,0.07), 0 0 90px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.06)",
-      }}
+    <motion.form
+      initial={{ opacity: 0, x: 34, scale: 0.97 }}
+      whileInView={{ opacity: 1, x: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.85, delay: 0.08, ease: [0.2, 0.8, 0.2, 1] }}
+      onSubmit={handleSubmit}
+      className="relative w-full max-w-[500px] overflow-hidden rounded-[25px] border border-emerald-300/16 bg-[#0c111b]/88 p-8 shadow-[0_28px_90px_rgba(0,0,0,0.52),0_0_0_1px_rgba(255,255,255,0.025),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-2xl sm:p-9"
     >
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/35 to-transparent" />
+      <div className="absolute -left-28 bottom-16 h-56 w-56 rounded-full bg-emerald-400/10 blur-3xl" />
+      <div className="absolute -right-24 bottom-4 h-56 w-56 rounded-full bg-cyan-400/12 blur-3xl" />
+
+      <div className="relative flex items-center justify-between">
+        <h3 className="text-xl font-bold text-white">Submit your idea</h3>
+        <span className="font-mono text-[10px] font-bold uppercase text-white/28">FORM_01</span>
+      </div>
+
+      <div className="relative mt-7 grid gap-5 sm:grid-cols-2">
+        <IdeaInput
+          id="idea-name"
+          label="Your name"
+          placeholder="Jordan Lee"
+          value={form.name}
+          onChange={update("name")}
+        />
+        <IdeaInput
+          id="idea-contact"
+          label="Email / Phone"
+          placeholder="you@email.com"
+          type="text"
+          value={form.contact}
+          onChange={update("contact")}
+        />
+      </div>
+
+      <div className="relative mt-5">
+        <IdeaInput
+          id="idea-title"
+          label="Idea title"
+          placeholder="Give your idea a name"
+          value={form.title}
+          onChange={update("title")}
+        />
+      </div>
+
+      <div className="relative mt-5">
+        <IdeaTextarea value={form.idea} onChange={update("idea")} />
+      </div>
+
       <div
-        className="absolute -top-24 -left-24 w-72 h-72 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(255,255,255,0.06), transparent 65%)", filter: "blur(50px)" }}
-      />
+        className="relative mt-5"
+        onChange={(event) => {
+          const input = event.target as HTMLInputElement;
+          setFileName(input.files?.[0]?.name ?? "");
+        }}
+      >
+        <UploadField fileName={fileName} />
+      </div>
 
-      <AnimatePresence mode="wait">
-        {sent ? (
-          <motion.div
-            key="success"
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="py-16 text-center flex flex-col items-center gap-4"
-          >
-            <div className="w-16 h-16 rounded-full flex items-center justify-center border border-white/20 bg-white/[0.04]">
-              <Send className="w-6 h-6 text-white/80" />
-            </div>
-            <h3 className="font-display text-3xl font-bold text-white">Message received.</h3>
-            <p className="text-white/50 text-sm max-w-sm leading-relaxed">
-              We'll review your project details and reply within 24 hours.
-            </p>
-          </motion.div>
-        ) : (
-          <motion.form
-            key="form"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            onSubmit={handleSubmit}
-            className="relative space-y-6"
-          >
-            <div className="flex items-center justify-between pb-5 border-b border-white/[0.08]">
-              <span className="font-display text-xl font-bold text-white">Project Inquiry</span>
-              <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-[color:var(--color-brand-a)] px-2.5 py-1 rounded-full border border-[color:var(--color-brand-a)]/25 bg-[color:var(--color-brand-a)]/[0.06]">
-                <span className="relative flex w-1.5 h-1.5">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-[color:var(--color-brand-a)] opacity-60 animate-ping" />
-                  <span className="relative inline-flex rounded-full w-1.5 h-1.5 bg-[color:var(--color-brand-a)]" />
-                </span>
-                Accepting Q3 projects
-              </span>
-            </div>
+      <button
+        type="submit"
+        className="group relative mt-7 flex h-12 w-full items-center justify-center gap-3 overflow-hidden rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-sm font-extrabold text-[#111827] shadow-[0_18px_44px_rgba(0,230,118,0.28)] transition hover:brightness-110"
+        data-cursor="hover"
+      >
+        <span className="absolute inset-0 translate-x-[-110%] bg-gradient-to-r from-transparent via-white/35 to-transparent transition-transform duration-700 group-hover:translate-x-[110%]" />
+        <span className="relative">Submit your idea</span>
+        <ArrowRight className="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+      </button>
 
-            <div className="grid sm:grid-cols-2 gap-5">
-              <Field id="name" label="Your name" Icon={User} placeholder="Ada Lovelace"
-                value={form.name} onChange={(v) => setForm((p) => ({ ...p, name: v }))} />
-              <Field id="email" label="Email" type="email" Icon={Mail} placeholder="you@company.com"
-                value={form.email} onChange={(v) => setForm((p) => ({ ...p, email: v }))} />
-              <div className="sm:col-span-2">
-                <Field id="company" label="Company / Org" Icon={Building2} placeholder="Where do you work?"
-                  value={form.company} onChange={(v) => setForm((p) => ({ ...p, company: v }))} />
-              </div>
-            </div>
+      <p className="relative mt-4 text-center text-[11px] font-semibold text-slate-500">
+        We review every submission personally. No idea is too small.
+      </p>
+    </motion.form>
+  );
+}
 
-            <Field
-              id="project" label="Tell us about your project" Icon={MessageSquare} textarea rows={4}
-              placeholder="What platform or product are you building? What is your timeline?"
-              value={form.project} onChange={(v) => setForm((p) => ({ ...p, project: v }))}
-            />
+function IdeaSubmissionSection() {
+  return (
+    <section
+      id="contact-form"
+      className="relative min-h-[760px] overflow-hidden border-y border-white/[0.04] bg-[#05060b] px-5 py-20 text-white sm:px-8 md:py-20"
+    >
+      <IdeaProgramBackdrop />
+      <div className="relative z-10 mx-auto grid w-[min(1220px,92vw)] items-center gap-14 lg:grid-cols-[0.99fr_1.06fr] lg:gap-10">
+        <OpenCallIntro />
+        <div className="flex justify-center lg:justify-end">
+          <IdeaSubmissionCard />
+        </div>
+      </div>
+    </section>
+  );
+}
 
-            <div className="pt-2">
-              <MagneticButton>
-                Send message <ArrowUpRight className="w-4 h-4 ml-1" />
-              </MagneticButton>
-            </div>
-          </motion.form>
-        )}
-      </AnimatePresence>
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-2.5">
+      <span className="h-px w-5 bg-white/30" />
+      <span
+        className="font-mono text-[11px] uppercase text-white/45"
+        style={{ letterSpacing: "0.25em" }}
+      >
+        {children}
+      </span>
     </div>
   );
 }
 
-/* ── Info card ─────────────────────────────────────────────── */
-function InfoCard({ Icon, label, value, href, tag }: (typeof CONTACT_INFO)[number]) {
+function SectionBackdrop() {
   return (
-    <motion.a
-      href={href}
-      whileHover={{ y: -3 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="relative rounded-2xl p-5 border border-white/[0.07] bg-white/[0.03] backdrop-blur-xl flex items-center justify-between gap-4 overflow-hidden group"
-      data-cursor="hover"
-    >
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ background: "radial-gradient(120px circle at 0% 50%, rgba(255,255,255,0.06), transparent 70%)" }}
-      />
-      <div className="relative flex items-center gap-4 min-w-0">
-        <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border border-white/10 bg-white/[0.04] group-hover:border-white/25 transition-colors">
-          <Icon className="w-5 h-5 text-[color:var(--color-brand-a)]" />
-        </div>
-        <div className="min-w-0">
-          <span className="text-[10px] font-mono uppercase tracking-widest text-white/35">{label}</span>
-          <h4 className="text-white font-semibold text-base truncate group-hover:text-white/85 transition-colors">{value}</h4>
-        </div>
-      </div>
-      <span className="relative shrink-0 text-[10px] font-mono px-2.5 py-1 rounded-full border border-white/10 text-white/50 bg-white/[0.02]">
-        {tag}
-      </span>
-    </motion.a>
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="absolute left-1/2 -top-40 h-[50rem] w-[50rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--color-brand-a)_0%,transparent_62%)] opacity-[0.08] blur-[85px]" />
+    </div>
   );
 }
 
-/* ── FAQ card ──────────────────────────────────────────────── */
-function FaqCard({ q, a, open, onToggle }: { q: string; a: string; open: boolean; onToggle: () => void }) {
+function FaqCard({
+  q,
+  a,
+  open,
+  onToggle,
+}: {
+  q: string;
+  a: string;
+  open: boolean;
+  onToggle: () => void;
+}) {
   return (
     <motion.div
       layout
-      className="rounded-2xl border backdrop-blur-xl transition-colors duration-300 overflow-hidden"
+      className="overflow-hidden rounded-2xl border backdrop-blur-xl transition-colors duration-300"
       style={{
         borderColor: open ? "rgba(255,255,255,0.22)" : "rgba(255,255,255,0.06)",
         background: open ? "rgba(255,255,255,0.035)" : "rgba(255,255,255,0.02)",
@@ -234,21 +361,26 @@ function FaqCard({ q, a, open, onToggle }: { q: string; a: string; open: boolean
     >
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between gap-6 text-left px-7 py-6"
+        className="flex w-full items-center justify-between gap-6 px-7 py-6 text-left"
         data-cursor="hover"
       >
-        <span className={`text-lg font-semibold transition-colors ${open ? "text-white" : "text-white/80"}`}>{q}</span>
         <span
-          className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center border transition-colors"
+          className={`text-lg font-semibold transition-colors ${open ? "text-white" : "text-white/80"
+            }`}
+        >
+          {q}
+        </span>
+        <span
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-colors"
           style={{
             borderColor: open ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.1)",
             background: open ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.04)",
           }}
         >
           {open ? (
-            <Minus className="w-3.5 h-3.5 text-white/80" />
+            <Minus className="h-3.5 w-3.5 text-white/80" />
           ) : (
-            <Plus className="w-3.5 h-3.5 text-white/60" />
+            <Plus className="h-3.5 w-3.5 text-white/60" />
           )}
         </span>
       </button>
@@ -263,7 +395,7 @@ function FaqCard({ q, a, open, onToggle }: { q: string; a: string; open: boolean
             transition={{ duration: 0.3, ease: "easeInOut" }}
             style={{ overflow: "hidden" }}
           >
-            <p className="px-7 pb-6 text-white/55 text-sm leading-relaxed max-w-xl">{a}</p>
+            <p className="max-w-xl px-7 pb-6 text-sm leading-relaxed text-white/55">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -271,54 +403,25 @@ function FaqCard({ q, a, open, onToggle }: { q: string; a: string; open: boolean
   );
 }
 
-/* ── Main Contact Page Component ───────────────────────────── */
 export default function ContactPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
     <div className="bg-[#050505] text-white selection:bg-emerald-500 selection:text-black">
-      {/* 1. Hero Section */}
       <ContactHero />
 
-      {/* Section Separator */}
-      <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       </div>
 
-      {/* Main Grid: Form + Info Cards */}
-      <section id="contact-form" className="relative py-14 md:py-20 overflow-hidden">
+      <IdeaSubmissionSection />
+
+      <section className="relative overflow-hidden border-t border-white/[0.06] py-14 md:py-20">
         <SectionBackdrop />
-        <div className="relative w-[min(1280px,94vw)] mx-auto grid lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column Info */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            <div className="space-y-2.5">
-              <Eyebrow>Get In Touch</Eyebrow>
-              <p className="text-white/60 text-base leading-relaxed max-w-sm">
-                We partner with ambitious teams to engineer products that win.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              {CONTACT_INFO.map((info) => (
-                <InfoCard key={info.label} {...info} />
-              ))}
-            </div>
-          </div>
-
-          {/* Right Column Form */}
-          <div className="lg:col-span-7">
-            <ContactForm />
-          </div>
-        </div>
-      </section>
-
-      {/* Accordion FAQ Section */}
-      <section className="relative py-14 md:py-20 border-t border-white/[0.06] overflow-hidden">
-        <SectionBackdrop />
-        <div className="relative w-[min(860px,94vw)] mx-auto">
-          <div className="flex flex-col items-center text-center space-y-2.5 mb-8">
+        <div className="relative mx-auto w-[min(860px,94vw)]">
+          <div className="mb-8 flex flex-col items-center space-y-2.5 text-center">
             <Eyebrow>Got Questions?</Eyebrow>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-white">
+            <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">
               Frequently asked questions.
             </h2>
           </div>

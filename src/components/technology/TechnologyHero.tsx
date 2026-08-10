@@ -32,13 +32,13 @@ export default function TechnologyHero() {
         dotGradientClass: "from-red-500 to-purple-500",
       }}
       heading={{
-        line1: "Building Digital",
-        whiteGradientText: "Experiences",
-        line2: "That People",
-        accentText: "Remember.",
+        line1: "Your Goal Is The Vision.",
+        whiteGradientText: "Technology Is The",
+        line2: "Power",
+        accentText: "Achieve It.",
         accentGradientClass: "from-red-400 via-purple-400 to-indigo-400",
       }}
-      description="We are an award-winning digital design & engineering studio crafting high-impact platforms, brand identities, and futuristic web experiences for visionary tech teams worldwide."
+      description="Redefine through Web – Apps- CRM – Software – Automation"
       primaryCta={{
         label: "Our Story",
         href: "#our-story",

@@ -23,10 +23,10 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   const links = [
-    { to: "/", label: "Home" },
-    { to: "/about", label: "About" },
-    { to: "/services", label: "Services" },
-    { to: "/contact", label: "Contact" },
+    { to: "/", label: "Creative" },
+    { to: "/technology", label: "Technology" },
+    { to: "/companies", label: "Companies" },
+    { to: "/shop", label: "Shop" },
   ];
 
   const socials = [
@@ -105,8 +105,6 @@ export default function Footer() {
         >
           <h2 className="font-light leading-[0.9] tracking-[-0.06em] text-white text-[clamp(2.25rem,8vw,6.5rem)]">
             Let&apos;s Build
-            <br />
-            Something
             <br />
             <span className="bg-gradient-to-r from-white via-neutral-300 to-white/60 bg-clip-text text-transparent">
               Extraordinary

@@ -6,6 +6,7 @@ export type Palette = {
   b: string;
   c: string;
   bg?: string;
+  progress?: string;
 };
 
 /**
@@ -28,11 +29,13 @@ export function ThemeSwapper() {
         const b = el.dataset.paletteB ?? "#b8b8b8";
         const c = el.dataset.paletteC ?? "#666666";
         const bg = el.dataset.paletteBg ?? "#050505";
+        const progress = el.dataset.paletteProgress ?? a;
         const root = document.documentElement;
         root.style.setProperty("--brand-a", a);
         root.style.setProperty("--brand-b", b);
         root.style.setProperty("--brand-c", c);
         root.style.setProperty("--background", bg);
+        root.style.setProperty("--scroll-progress", progress);
       };
 
       const io = new IntersectionObserver(

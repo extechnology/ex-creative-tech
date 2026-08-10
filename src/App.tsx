@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import RootLayout from "@/layouts/RootLayout";
 import PageLoader from "@/components/PageLoader";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 /* ── Lazy-loaded pages ─────────────────────────────────────── */
 const HomePage    = lazy(() => import("@/pages/HomePage"));
@@ -32,16 +33,19 @@ function NotFound() {
 /* ── Router ────────────────────────────────────────────────── */
 export default function App() {
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Routes>
-        <Route element={<RootLayout />}>
-          <Route path="/"         element={<HomePage />} />
-          <Route path="/technology"    element={<TechnologyPage />} />
-          <Route path="/companies" element={<CompanyPage />} />
-          <Route path="/contact"  element={<ContactPage />} />
-          <Route path="*"         element={<NotFound />} />
-        </Route>
-      </Routes>
-    </Suspense>
+    <>
+      <ScrollToTop />
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route element={<RootLayout />}>
+            <Route path="/"         element={<HomePage />} />
+            <Route path="/technology"    element={<TechnologyPage />} />
+            <Route path="/companies" element={<CompanyPage />} />
+            <Route path="/contact"  element={<ContactPage />} />
+            <Route path="*"         element={<NotFound />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    </>
   );
 }

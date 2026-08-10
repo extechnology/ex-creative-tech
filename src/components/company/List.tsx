@@ -24,6 +24,7 @@ type CompanyKey = Exclude<keyof typeof PALETTES, "parent">;
 
 type Company = {
     key: CompanyKey;
+    anchorId: string;
     code: string;
     name: string;
     titleLine1: string;
@@ -40,6 +41,7 @@ type Company = {
 const COMPANIES: Company[] = [
     {
         key: "media",
+        anchorId: "ex-media",
         code: "01",
         name: "EX-Media",
         titleLine1: "Creative Media",
@@ -58,6 +60,7 @@ const COMPANIES: Company[] = [
     },
     {
         key: "tech",
+        anchorId: "ex-technology",
         code: "02",
         name: "EX-Technology",
         titleLine1: "Engineering",
@@ -76,6 +79,7 @@ const COMPANIES: Company[] = [
     },
     {
         key: "edu",
+        anchorId: "ex-edu",
         code: "03",
         name: "EX-Edu",
         titleLine1: "AI Learning",
@@ -94,6 +98,7 @@ const COMPANIES: Company[] = [
     },
     {
         key: "bot",
+        anchorId: "ex-bot",
         code: "04",
         name: "EX-Bot",
         titleLine1: "WhatsApp",
@@ -170,13 +175,14 @@ function CompanySection({ c, index }: { c: Company; index: number }) {
 
     return (
         <div
+            id={c.anchorId}
             ref={ref}
             data-palette=""
             data-palette-a={p.a}
             data-palette-b={p.b}
             data-palette-c={p.c}
             data-palette-bg={p.bg}
-            className="relative min-h-[100svh] flex items-center overflow-hidden py-20 sm:py-28 md:py-32 noise transition-colors duration-700"
+            className="relative min-h-[100svh] scroll-mt-28 flex items-center overflow-hidden py-20 sm:py-28 md:py-32 noise transition-colors duration-700"
             style={{
                 backgroundColor: p.bg,
                 // Let the browser skip layout/paint for sections scrolled out of view —

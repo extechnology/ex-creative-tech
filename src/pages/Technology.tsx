@@ -9,6 +9,7 @@ import TechnologyHero from "@/components/technology/TechnologyHero";
 export default function TechnologyPage() {
   return (
     <div className="bg-[#050505] min-h-screen text-white overflow-x-hidden font-sans selection:bg-red-500 selection:text-white">
+  
       {/* 1. Hero Section */}
       <TechnologyHero />
 
