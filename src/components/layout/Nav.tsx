@@ -73,6 +73,8 @@ export default function Nav() {
       >
         <div className={`glass shadow-2xl rounded-full flex items-center justify-between px-6 py-3.5 transition-all duration-500 ${scrolled ? "shadow-[0_8px_32px_rgba(0,0,0,0.6)]" : ""
           }`}>
+
+            
           {/* Logo */}
           <Logo imageClassName="h-8 sm:h-8 md:h-10 w-auto object-contain max-h-12 sm:max-h-14 min-w-[140px] sm:min-w-[170px]" />
 
