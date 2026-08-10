@@ -15,13 +15,6 @@ const NAV_LINKS = [
 
 const COMPANY_LINKS = [
   {
-    href: "/companies#ex-edu",
-    label: "Ex-Edu",
-    description: "AI learning paths, mentorship, and career-ready cohorts.",
-    logo: "/ex-edu-logo.png",
-    accent: "#A855F7",
-  },
-  {
     href: "/companies#ex-media",
     label: "Ex-Media",
     description: "Brand systems, campaigns, motion, and content studio work.",
@@ -34,6 +27,13 @@ const COMPANY_LINKS = [
     description: "Production software, cloud infrastructure, and AI systems.",
     logo: "/ex-tech-logo.png",
     accent: "#00E5FF",
+  },
+  {
+    href: "/companies#ex-edu",
+    label: "Ex-Edu",
+    description: "AI learning paths, mentorship, and career-ready cohorts.",
+    logo: "/ex-edu-logo.png",
+    accent: "#A855F7",
   },
   {
     href: "/companies#ex-bot",
@@ -74,7 +74,7 @@ export default function Nav() {
         <div className={`glass shadow-2xl rounded-full flex items-center justify-between px-6 py-3.5 transition-all duration-500 ${scrolled ? "shadow-[0_8px_32px_rgba(0,0,0,0.6)]" : ""
           }`}>
 
-            
+
           {/* Logo */}
           <Logo imageClassName="h-8 sm:h-8 md:h-10 w-auto object-contain max-h-12 sm:max-h-14 min-w-[140px] sm:min-w-[170px]" />
 
