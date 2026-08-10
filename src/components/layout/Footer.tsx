@@ -8,6 +8,7 @@ import {
   Github,
 } from "lucide-react";
 import Beams from "../Beams";
+import Logo from "@/components/shared/Logo";
 
 // Used elsewhere in the app to reserve scroll space above the fixed footer.
 // Kept as an export so existing spacer logic doesn't break.
@@ -68,15 +69,8 @@ export default function Footer() {
             whileInView="show"
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex items-center gap-3"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 ring-1 ring-white/15 backdrop-blur-xl sm:h-12 sm:w-12">
-              <div className="h-4 w-4 rounded-full bg-white sm:h-5 sm:w-5" />
-            </div>
-            <div className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
-              EX-Creative
-              <span className="font-light text-white/40"> Technology</span>
-            </div>
+            <Logo imageClassName="h-14 sm:h-20 md:h-28 w-auto object-contain max-w-[280px] sm:max-w-[340px]" />
           </motion.div>
 
           <motion.nav

@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
+import Logo from "@/components/shared/Logo";
 
+
+// Nav items
 const NAV_LINKS = [
   { href: "/", label: "Creative" },
   { href: "/technology", label: "Technology" },
   { href: "/companies", label: "Companies" },
-  { href: "/contact", label: "Contact" },
+  { href: "/shop", label: "Shop" },
 ];
 
 export default function Nav() {
@@ -37,21 +40,11 @@ export default function Nav() {
           scrolled ? "top-2" : "top-4"
         }`}
       >
-        <div className={`glass shadow-2xl   rounded-full flex items-center justify-between px-5 py-4 transition-all duration-500 ${
+        <div className={`glass shadow-2xl rounded-full flex items-center justify-between px-6 py-3.5 transition-all duration-500 ${
           scrolled ? "shadow-[0_8px_32px_rgba(0,0,0,0.6)]" : ""
         }`}>
           {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center gap-2.5 font-display text-white text-lg group"
-            data-cursor="hover"
-          >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[color:var(--color-brand-a)] opacity-60" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[color:var(--color-brand-a)]" />
-            </span>
-            EX<span className="text-white/30">·</span>Creative
-          </Link>
+          <Logo imageClassName="h-8 sm:h-8 md:h-10 w-auto object-contain max-h-12 sm:max-h-14 min-w-[140px] sm:min-w-[170px]" />
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-7 text-sm text-white/60">
@@ -86,7 +79,7 @@ export default function Nav() {
               className="hidden md:inline-flex items-center gap-1.5 text-xs font-semibold rounded-full px-5 py-2.5 bg-white text-black hover:opacity-85 transition"
               data-cursor="hover"
             >
-              Start a Project <ArrowUpRight className="w-3.5 h-3.5" />
+              Submit Your Ideas <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
             <button
               id="mobile-menu-toggle"

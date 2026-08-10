@@ -13,7 +13,7 @@ import { Reveal, MagneticButton } from "@/components/Reveal";
 const PALETTES = {
     parent: { a: "#ffffff", b: "#c9c9d1", c: "#6b6b76", bg: "#050505" },
     media: { a: "#D81B60", b: "#8A2BE2", c: "#FF6EC7", bg: "#0a040e" },
-    tech: { a: "#00E5FF", b: "#3B82F6", c: "#7CC9FF", bg: "#03060f" },
+    tech: { a: "#CC01FF", b: "#00E5FF", c: "#7CC9FF", bg: "#05030f" },
     edu: { a: "#A855F7", b: "#7C3AED", c: "#E9D5FF", bg: "#0a0616" },
     bot: { a: "#25D366", b: "#22C55E", c: "#86EFAC", bg: "#03110a" },
 } as const;
@@ -26,8 +26,12 @@ type Company = {
     key: CompanyKey;
     code: string;
     name: string;
+    titleLine1: string;
+    titleLine2: string;
+    url: string;
     tagline: string;
     desc: string;
+    logo: string;
     Icon: typeof Clapperboard;
     stats: [string, string][];
     statIcons: (typeof Clapperboard)[];
@@ -38,8 +42,12 @@ const COMPANIES: Company[] = [
         key: "media",
         code: "01",
         name: "EX-Media",
+        titleLine1: "Creative Media",
+        titleLine2: "& Studio",
+        url: "https://www.exmedia.in/",
         tagline: "Creative that moves culture.",
         desc: "A full-service creative studio building brand systems, campaigns, motion design and content that stops the scroll and starts conversations.",
+        logo: "/ex-media-logo.png",
         Icon: Clapperboard,
         stats: [
             ["240M+", "Views generated"],
@@ -52,8 +60,12 @@ const COMPANIES: Company[] = [
         key: "tech",
         code: "02",
         name: "EX-Technology",
+        titleLine1: "Engineering",
+        titleLine2: "& AI Systems",
+        url: "https://extechnology.in/",
         tagline: "Engineering at the edge.",
         desc: "Custom software, cloud infrastructure and AI systems. We ship production-grade platforms for teams that treat engineering as leverage.",
+        logo: "/ex-tech-logo.png",
         Icon: Code2,
         stats: [
             ["120+", "Products shipped"],
@@ -66,8 +78,12 @@ const COMPANIES: Company[] = [
         key: "edu",
         code: "03",
         name: "EX-Edu",
+        titleLine1: "AI Learning",
+        titleLine2: "& Mentorship",
+        url: "https://exedu.in/",
         tagline: "The future of learning, personal.",
         desc: "AI-native learning paths and mentorship for the next generation of builders. Curriculum designed around outcomes, not attendance.",
+        logo: "/ex-edu-logo.png",
         Icon: GraduationCap,
         stats: [
             ["24K+", "Learners"],
@@ -80,8 +96,12 @@ const COMPANIES: Company[] = [
         key: "bot",
         code: "04",
         name: "EX-Bot",
+        titleLine1: "WhatsApp",
+        titleLine2: "& AI Automation",
+        url: "https://exbot.in/",
         tagline: "Automate business, humanly.",
         desc: "WhatsApp-first AI agents, workflow automation and conversational commerce that feels like a great teammate — not a chatbot.",
+        logo: "/ex-bot-logo.png",
         Icon: Bot,
         stats: [
             ["18M+", "Messages/mo"],
@@ -193,8 +213,9 @@ function CompanySection({ c, index }: { c: Company; index: number }) {
                     </Reveal>
 
                     <Reveal delay={0.15}>
-                        <h3 className="mt-3 font-display font-bold text-white text-6xl leading-[0.88] tracking-tight sm:mt-4 sm:text-7xl md:text-8xl lg:text-9xl">
-                            {c.name}
+                        <h3 className="mt-3 font-display font-bold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight sm:mt-4">
+                            <span className="block sm:whitespace-nowrap">{c.titleLine1}</span>
+                            <span className="block sm:whitespace-nowrap">{c.titleLine2}</span>
                         </h3>
                     </Reveal>
 
@@ -220,33 +241,61 @@ function CompanySection({ c, index }: { c: Company; index: number }) {
                     </Reveal>
 
                     <Reveal delay={0.65} className="mt-8">
-                        <MagneticButton href="/contact">
-                            Visit {c.name} <ArrowUpRight className="w-4 h-4" />
-                        </MagneticButton>
+                        <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-block">
+                            <MagneticButton>
+                                Visit {c.name} <ArrowUpRight className="w-4 h-4" />
+                            </MagneticButton>
+                        </a>
                     </Reveal>
                 </div>
 
                 {/* Visual side */}
                 <div className="md:col-span-6 relative h-[320px] sm:h-[440px] md:h-[500px]">
                     <motion.div style={{ y: y1, willChange: "transform" }} className="absolute inset-0 flex items-center justify-center">
-                        <div className="relative w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] md:w-[380px] md:h-[380px]">
-                            {/* Glow blob */}
+                        <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px]">
+                            {/* Ambient Glow blob matched with company palette */}
                             <div
-                                className="absolute inset-0 rounded-full blur-3xl opacity-60"
+                                className="absolute inset-0 rounded-full blur-3xl opacity-70 pointer-events-none"
                                 style={{
-                                    background: `radial-gradient(circle at 30% 30%, ${p.a}, transparent 60%), radial-gradient(circle at 70% 70%, ${p.b}, transparent 60%)`,
+                                    background: `radial-gradient(circle at 40% 40%, ${p.a}aa, transparent 70%), radial-gradient(circle at 60% 60%, ${p.b}88, transparent 70%)`,
                                 }}
                             />
                             {/* Card — kept transparent so the background number reads through */}
-                            <div className="absolute inset-4 rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-md flex flex-col justify-between p-5 sm:inset-6 sm:p-6 md:p-8">
-                                <div className="flex items-center justify-between">
-                                    <Icon className="w-7 h-7 text-white sm:w-8 sm:h-8" />
+                            <div className="absolute inset-2 sm:inset-4 rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-md flex flex-col justify-between p-5 sm:p-7 md:p-8 overflow-hidden group transition-all duration-500 hover:border-white/20 hover:bg-white/[0.05]">
+                                {/* Soft ambient inner glow matched with logo color (no dot) */}
+                                <div
+                                    className="absolute inset-0 rounded-3xl blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none"
+                                    style={{
+                                        background: `radial-gradient(circle at 50% 50%, ${p.a}, transparent 75%)`,
+                                    }}
+                                />
+
+                                <div className="flex items-center justify-between z-10">
+                                    <div className="flex items-center gap-2">
+                                        <Icon className="w-5 h-5 text-white/70 sm:w-6 sm:h-6" />
+                                        <span className="text-xs font-mono text-white/50 tracking-wider uppercase hidden sm:inline">{c.key}</span>
+                                    </div>
                                     <span className="text-white/40 font-mono text-xs">{c.code}/04</span>
                                 </div>
-                                <div>
-                                    <div className="text-white/50 text-xs uppercase tracking-widest">Now shipping</div>
-                                    <div className="mt-2 font-display text-2xl text-white sm:text-3xl">{c.name}</div>
-                                    <div className="mt-4 h-1 rounded-full bg-white/10 overflow-hidden">
+
+                                {/* Center Company Logo Display - Clean & Larger */}
+                                <div className="my-auto py-2 px-2 flex items-center justify-center relative z-10 min-h-[140px] sm:min-h-[180px]">
+                                    <motion.img
+                                        src={c.logo}
+                                        alt={`${c.name} Logo`}
+                                        initial={{ scale: 0.9, opacity: 0.9 }}
+                                        whileInView={{ scale: 1, opacity: 1 }}
+                                        whileHover={{ scale: 1.05 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, ease: "easeOut" }}
+                                        className="relative h-28 sm:h-36 md:h-44 max-h-[180px] sm:max-h-[220px] w-auto max-w-[92%] object-contain filter drop-shadow-[0_12px_30px_rgba(0,0,0,0.7)]"
+                                    />
+                                </div>
+
+                                <div className="z-10">
+                                    <div className="text-white/50 text-[10px] sm:text-xs uppercase tracking-widest font-mono">Now shipping</div>
+                                    <div className="mt-1 font-display text-xl text-white sm:text-2xl md:text-3xl">{c.name}</div>
+                                    <div className="mt-3 h-1 rounded-full bg-white/10 overflow-hidden">
                                         <motion.div
                                             initial={{ width: "20%" }}
                                             whileInView={{ width: "84%" }}
@@ -258,27 +307,6 @@ function CompanySection({ c, index }: { c: Company; index: number }) {
                                     </div>
                                 </div>
                             </div>
-                            {/* Orbiting dots — only animate while their section is actually in view */}
-                            {[0, 1, 2, 3].map((i) => (
-                                <motion.div
-                                    key={i}
-                                    className="absolute top-1/2 left-1/2 w-3 h-3 rounded-full"
-                                    style={{
-                                        background: p.a,
-                                        boxShadow: `0 0 20px ${p.a}`,
-                                        willChange: "transform",
-                                    } as React.CSSProperties}
-                                    initial={{ rotate: 0 }}
-                                    whileInView={{ rotate: 360 }}
-                                    viewport={{ once: false, amount: 0.2 }}
-                                    transition={{ duration: 14 + i * 3, repeat: Infinity, ease: "linear" }}
-                                >
-                                    <span
-                                        className="block w-3 h-3 rounded-full"
-                                        style={{ transform: `translateX(${160 + i * 18}px)` }}
-                                    />
-                                </motion.div>
-                            ))}
                         </div>
                     </motion.div>
 
