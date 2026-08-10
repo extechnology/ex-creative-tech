@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 
 const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/services", label: "Services" },
+  { href: "/", label: "Creative" },
+  { href: "/technology", label: "Technology" },
+  { href: "/companies", label: "Companies" },
   { href: "/contact", label: "Contact" },
 ];
 

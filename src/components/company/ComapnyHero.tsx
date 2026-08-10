@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
-import { ArrowUpRight, Cpu, Layers, Sparkles, Zap } from "lucide-react";
+import { ArrowUpRight, Cpu } from "lucide-react";
 
-export default function ServicesHero() {
+export default function CompanyHero() {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-[#050505] text-white">
       {/* Ambient Cyan & Blue Gradient Blur Blobs */}
@@ -25,7 +25,7 @@ export default function ServicesHero() {
             >
               <span className="flex h-2 w-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 animate-pulse" />
               <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="tracking-wide">Capabilities & Services</span>
+              <span className="tracking-wide">Companies</span>
             </motion.div>
 
             {/* Huge Heading */}
@@ -52,7 +52,7 @@ export default function ServicesHero() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="max-w-2xl mx-auto lg:mx-0 text-base sm:text-lg text-white/60 leading-relaxed font-normal"
             >
-              Four specialized studios under one synchronized roof. Full-stack engineering, 3D motion design, custom AI automation, and technical team bootcamps tailored for high-growth tech leaders.
+              EX-Creative is a family of independent studios working in unison to deliver high-end digital products to global brands and high-growth startups.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -66,7 +66,7 @@ export default function ServicesHero() {
                 href="#capabilities"
                 className="group relative inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black font-medium text-sm hover:bg-white/90 transition-all duration-300 shadow-[0_0_30px_rgba(0,229,255,0.25)] hover:shadow-[0_0_40px_rgba(0,229,255,0.45)] hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span>Explore Services</span>
+                <span>Explore Companies</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
 
