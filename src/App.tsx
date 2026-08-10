@@ -5,12 +5,12 @@ import PageLoader from "@/components/PageLoader";
 
 /* ── Lazy-loaded pages ─────────────────────────────────────── */
 const HomePage    = lazy(() => import("@/pages/HomePage"));
-const AboutPage   = lazy(() => import("@/pages/AboutPage"));
-const ServicesPage = lazy(() => import("@/pages/Company"));
+const TechnologyPage   = lazy(() => import("@/pages/Technology"));
+const CompanyPage = lazy(() => import("@/pages/Company"));
 const ContactPage = lazy(() => import("@/pages/ContactPage"));
 
-/* ── Fullscreen loading fallback ───────────────────────────── */
-/* ── 404 ───────────────────────────────────────────────────── */
+
+
 function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#050505] px-4 text-center">
@@ -36,8 +36,8 @@ export default function App() {
       <Routes>
         <Route element={<RootLayout />}>
           <Route path="/"         element={<HomePage />} />
-          <Route path="/technology"    element={<AboutPage />} />
-          <Route path="/companies" element={<ServicesPage />} />
+          <Route path="/technology"    element={<TechnologyPage />} />
+          <Route path="/companies" element={<CompanyPage />} />
           <Route path="/contact"  element={<ContactPage />} />
           <Route path="*"         element={<NotFound />} />
         </Route>

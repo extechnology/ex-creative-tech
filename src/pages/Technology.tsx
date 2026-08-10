@@ -1,16 +1,16 @@
-import AgencyHero from "@/components/about/AgencyHero";
-import CompanyStory from "@/components/about/CompanyStory";
-import WhyUsFeatures from "@/components/about/WhyUsFeatures";
-import ProcessTimeline from "@/components/about/ProcessTimeline";
-import BehindTheScenes from "@/components/about/BehindTheScenes";
-import FaqAccordion from "@/components/about/FaqAccordion";
-import AgencyCTA from "@/components/about/AgencyCTA";
+import CompanyStory from "@/components/technology/CompanyStory";
+import WhyUsFeatures from "@/components/technology/WhyUsFeatures";
+import ProcessTimeline from "@/components/technology/ProcessTimeline";
+import BehindTheScenes from "@/components/technology/BehindTheScenes";
+import FaqAccordion from "@/components/technology/FaqAccordion";
+import AgencyCTA from "@/components/technology/AgencyCTA";
+import TechnologyHero from "@/components/technology/TechnologyHero";
 
-export default function AboutPage() {
+export default function TechnologyPage() {
   return (
     <div className="bg-[#050505] min-h-screen text-white overflow-x-hidden font-sans selection:bg-red-500 selection:text-white">
       {/* 1. Hero Section */}
-      <AgencyHero />
+      <TechnologyHero />
 
       {/* Section Separator */}
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
