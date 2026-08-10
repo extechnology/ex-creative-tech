@@ -82,7 +82,7 @@ export default function HomeHero() {
                 Great Businesses Don’t Follow Trends
               </span>
 
-              <span className="block gradient-text mt-1.5 sm:whitespace-nowrap">
+              <span className="block text-gray-200 mt-1.5 sm:whitespace-nowrap">
                 They Create Ideas That Become Trends.
               </span>
             </h1>

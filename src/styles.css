@@ -87,6 +87,7 @@
   --brand-a: #ffffff;
   --brand-b: #b8b8b8;
   --brand-c: #666666;
+  --scroll-progress: var(--brand-a);
 
   --grid-color: rgba(255, 255, 255, 0.04);
   --footer-height: 280px;
