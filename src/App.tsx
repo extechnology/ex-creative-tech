@@ -4,10 +4,14 @@ import RootLayout from "@/layouts/RootLayout";
 import PageLoader from "@/components/PageLoader";
 import ScrollToTop from "@/components/shared/ScrollToTop";
 
+
+
 /* ── Lazy-loaded pages ─────────────────────────────────────── */
 const HomePage    = lazy(() => import("@/pages/HomePage"));
 const TechnologyPage   = lazy(() => import("@/pages/Technology"));
 const CompanyPage = lazy(() => import("@/pages/Company"));
+const Shop = lazy(()=> import("@/pages/Shop"))
+const Career = lazy(()=> import("@/pages/Career"))
 const ContactPage = lazy(() => import("@/pages/ContactPage"));
 
 
@@ -30,6 +34,8 @@ function NotFound() {
   );
 }
 
+
+
 /* ── Router ────────────────────────────────────────────────── */
 export default function App() {
   return (
@@ -41,6 +47,8 @@ export default function App() {
             <Route path="/"         element={<HomePage />} />
             <Route path="/technology"    element={<TechnologyPage />} />
             <Route path="/companies" element={<CompanyPage />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/careers" element={<Career />} />
             <Route path="/contact"  element={<ContactPage />} />
             <Route path="*"         element={<NotFound />} />
           </Route>
