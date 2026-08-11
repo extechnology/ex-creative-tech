@@ -49,9 +49,9 @@ export default function AgencyCTA() {
           </div>
 
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight font-sans">
-            Ready to build something{" "}
+           Technology Ensures Quality &{" "}
             <span className="bg-gradient-to-r from-red-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent italic font-serif font-normal">
-              incredible?
+              Zero-Error Delivery
             </span>
           </h2>
 
@@ -64,7 +64,7 @@ export default function AgencyCTA() {
               href="/contact"
               className="group relative inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-red-500 via-purple-600 to-indigo-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(239,68,68,0.4)] hover:shadow-[0_0_35px_rgba(239,68,68,0.7)] transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
             >
-              <span>Start Your Project</span>
+              <span>Submit Your Idea's</span>
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
 
