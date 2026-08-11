@@ -220,7 +220,7 @@ export default function Nav() {
               className="hidden md:inline-flex items-center gap-1.5 text-xs font-semibold rounded-full px-5 py-2.5 bg-white text-black hover:opacity-85 transition"
               data-cursor="hover"
             >
-              Submit Your Ideas <ArrowUpRight className="w-3.5 h-3.5" />
+              Submit Your Idea's <ArrowUpRight className="w-3.5 h-3.5" />
             </Link>
             <button
               id="mobile-menu-toggle"
@@ -276,7 +276,7 @@ export default function Nav() {
                   to="/contact"
                   className="inline-flex items-center gap-2 text-sm font-semibold rounded-full px-7 py-3.5 bg-white text-black hover:opacity-90 transition"
                 >
-                  Start a Project <ArrowUpRight className="w-4 h-4" />
+                  Submit Your Idea's <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </motion.div>
             </div>

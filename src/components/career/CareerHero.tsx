@@ -44,10 +44,6 @@ export default function CareerHero() {
                 href: "#openings",
                 shadowClass: "shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]",
             }}
-            secondaryCta={{
-                label: "Life At EXCT",
-                href: "#culture",
-            }}
             ambientGradients={{
                 mainBlobClass: "from-red-600/20 via-rose-600/25 to-orange-500/10",
                 topBlobClass: "bg-red-500/15",
