@@ -421,7 +421,7 @@ export default function ContactPage() {
         <div className="relative mx-auto w-[min(860px,94vw)]">
           <div className="mb-8 flex flex-col items-center space-y-2.5 text-center">
             <Eyebrow>Got Questions?</Eyebrow>
-            <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="text-3xl font-bold text-white sm:text-4xl">
               Frequently asked questions.
             </h2>
           </div>

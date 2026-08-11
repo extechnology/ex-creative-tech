@@ -80,7 +80,7 @@ export default function ScrollToTop() {
           exit={{ opacity: 0, y: 18, scale: 0.92 }}
           transition={{ duration: 0.24, ease: [0.2, 0.8, 0.2, 1] }}
           data-cursor="hover"
-          className="fixed bottom-5 right-5 z-[70] flex h-12 w-12 touch-manipulation items-center justify-center rounded-full  bg-[color:var(--color-brand-a)] text-black shadow-[0_18px_60px_rgba(0,0,0,0.45)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_20px_70px_rgba(255,255,255,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-brand-a)] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:bottom-7 sm:right-7 sm:h-14 sm:w-14"
+          className="hidden sm:flex fixed bottom-5 right-5 z-[70] h-12 w-12 touch-manipulation items-center justify-center rounded-full  bg-[color:var(--color-brand-a)] text-black shadow-[0_18px_60px_rgba(0,0,0,0.45)] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_20px_70px_rgba(255,255,255,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--color-brand-a)] focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:bottom-16 sm:right-3 sm:h-14 sm:w-14"
         >
           <ArrowUp className="h-5 w-5" aria-hidden="true" />
         </motion.button>

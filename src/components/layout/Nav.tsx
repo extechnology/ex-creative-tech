@@ -16,29 +16,25 @@ const NAV_LINKS = [
 const COMPANY_LINKS = [
   {
     href: "/companies#ex-media",
-    label: "Ex-Media",
-    description: "Brand systems, campaigns, motion, and content studio work.",
+    label: "ex-media",
     logo: "/ex-media-logo.png",
     accent: "#D81B60",
   },
   {
     href: "/companies#ex-technology",
-    label: "Ex-Technology",
-    description: "Production software, cloud infrastructure, and AI systems.",
+    label: "ex-technology",
     logo: "/ex-tech-logo.png",
     accent: "#00E5FF",
   },
   {
     href: "/companies#ex-edu",
-    label: "Ex-Edu",
-    description: "AI learning paths, mentorship, and career-ready cohorts.",
+    label: "ex-edu",
     logo: "/ex-edu-logo.png",
     accent: "#A855F7",
   },
   {
     href: "/companies#ex-bot",
-    label: "Ex-Bot",
-    description: "WhatsApp-first AI agents and business automation.",
+    label: "ex-bot",
     logo: "/ex-bot-logo.png",
     accent: "#25D366",
   },
@@ -182,9 +178,6 @@ export default function Nav() {
                                           className="h-1.5 w-1.5 rounded-full"
                                           style={{ backgroundColor: "var(--company-accent)" }}
                                         />
-                                      </span>
-                                      <span className="mt-1.5 block text-xs leading-relaxed text-white/60">
-                                        {company.description}
                                       </span>
                                     </span>
                                     <ArrowRight

@@ -41,7 +41,7 @@ export default function PageLoader({ onDone }: { onDone?: () => void }) {
     >
       <div className="absolute inset-0 grid-bg opacity-40" />
       <motion.div
-        className="font-display text-white text-6xl md:text-8xl tracking-tight"
+        className="text-white text-6xl md:text-8xl tracking-tight"
         initial={{ letterSpacing: "0.4em", opacity: 0 }}
         animate={{ letterSpacing: "0em", opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
