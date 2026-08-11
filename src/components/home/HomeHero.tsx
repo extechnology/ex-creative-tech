@@ -77,7 +77,7 @@ export default function HomeHero() {
       <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-5 text-center sm:px-8">
         <div className="mx-auto w-[min(1200px,94vw)]">
           <Reveal delay={0.1}>
-            <h1 className="font-display font-medium text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-[1.25] tracking-tight max-w-7xl mx-auto text-center">
+            <h1 className="font-bold text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl leading-[1.25] tracking-tight max-w-7xl mx-auto text-center">
               <span className="block sm:whitespace-nowrap">
                 Great Businesses Don’t Follow Trends
               </span>

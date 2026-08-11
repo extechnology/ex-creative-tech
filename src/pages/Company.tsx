@@ -26,7 +26,7 @@ export default function CompanyPage() {
 
 
 
-      <section className="relative overflow-hidden py-20 noise sm:py-14 md:py-20">
+      <section className="relative overflow-hidden py-20 noise sm:py-14 md:py-28">
         {/* Plasma background */}
         <div className="pointer-events-none absolute inset-0">
           <Plasma
@@ -58,7 +58,7 @@ export default function CompanyPage() {
 
           {/* Heading */}
           <Reveal delay={0.1}>
-            <h2 className="font-display text-white text-[clamp(2rem,7vw,4.25rem)] leading-[1.05] tracking-tight">
+            <h2 className="font-medium text-white text-[clamp(2rem,7vw,4.25rem)] leading-[1.05] tracking-tight">
               Ready to Build
               <br />
             <span className="">Something Extraordinary?</span>

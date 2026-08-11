@@ -1144,7 +1144,7 @@ function FinalCTA() {
           className="mt-8 flex w-full flex-col items-center gap-3 px-1 sm:mt-10 sm:w-auto sm:flex-row sm:justify-center sm:px-0"
         >
           <MagneticButton
-            href="#ex-edu"
+            href="/companies#ex-edu"
             variant="creative"
             ariaLabel="Identify the Platform ↗"
             className="w-full max-w-[360px] sm:w-auto sm:max-w-none"

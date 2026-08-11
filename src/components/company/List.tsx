@@ -43,7 +43,7 @@ const COMPANIES: Company[] = [
         key: "media",
         anchorId: "ex-media",
         code: "01",
-        name: "EX-Media",
+        name: "ex-media",
         titleLine1: "Creative Media",
         titleLine2: "& Studio",
         url: "https://www.exmedia.in/",
@@ -62,7 +62,7 @@ const COMPANIES: Company[] = [
         key: "tech",
         anchorId: "ex-technology",
         code: "02",
-        name: "EX-Technology",
+        name: "ex-technology",
         titleLine1: "Engineering",
         titleLine2: "& AI Systems",
         url: "https://extechnology.in/",
@@ -81,7 +81,7 @@ const COMPANIES: Company[] = [
         key: "edu",
         anchorId: "ex-edu",
         code: "03",
-        name: "EX-Edu",
+        name: "ex-edu",
         titleLine1: "AI Learning",
         titleLine2: "& Mentorship",
         url: "https://exedu.in/",
@@ -100,7 +100,7 @@ const COMPANIES: Company[] = [
         key: "bot",
         anchorId: "ex-bot",
         code: "04",
-        name: "EX-Bot",
+        name: "ex-bot",
         titleLine1: "WhatsApp",
         titleLine2: "& AI Automation",
         url: "https://exbot.in/",
@@ -202,7 +202,7 @@ function CompanySection({ c, index }: { c: Company; index: number }) {
             {/* Big background number */}
             <motion.div
                 style={{ opacity: bigOpacity, willChange: "opacity" }}
-                className="absolute -right-8 top-1/2 -translate-y-1/2 font-display font-bold text-[55vw] leading-none text-white pointer-events-none select-none md:text-[42vw]"
+                className="absolute -right-8 top-1/2 -translate-y-1/2 font-bold text-[55vw] leading-none text-white pointer-events-none select-none md:text-[42vw]"
             >
                 {c.code}
             </motion.div>
@@ -219,7 +219,7 @@ function CompanySection({ c, index }: { c: Company; index: number }) {
                     </Reveal>
 
                     <Reveal delay={0.15}>
-                        <h3 className="mt-3 font-display font-bold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight sm:mt-4">
+                        <h3 className="mt-3 font-bold text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight sm:mt-4">
                             <span className="block sm:whitespace-nowrap">{c.titleLine1}</span>
                             <span className="block sm:whitespace-nowrap">{c.titleLine2}</span>
                         </h3>
@@ -232,14 +232,14 @@ function CompanySection({ c, index }: { c: Company; index: number }) {
                             return (
                                 <div key={k} className="glass rounded-2xl p-4 sm:p-5 md:p-6">
                                     <StatIcon className="mb-2 h-4 w-4 text-white/50 sm:mb-3 sm:h-5 sm:w-5" />
-                                    <div className="font-display text-xl text-white sm:text-2xl md:text-3xl">{k}</div>
+                                    <div className="text-xl text-white sm:text-2xl md:text-3xl">{k}</div>
                                     <div className="mt-1 text-[10px] uppercase tracking-widest text-white/50 sm:text-[11px]">{v}</div>
                                 </div>
                             );
                         })}
                     </Reveal>
 
-                    <Reveal delay={0.45} className="mt-6 text-xl gradient-text italic font-display sm:text-2xl md:text-4xl">
+                    <Reveal delay={0.45} className="mt-6 text-xl gradient-text italic sm:text-2xl md:text-4xl">
                         {c.tagline}
                     </Reveal>
                     <Reveal delay={0.55} className="mt-5 max-w-xl text-sm leading-relaxed text-white/60 sm:text-base">
@@ -300,7 +300,7 @@ function CompanySection({ c, index }: { c: Company; index: number }) {
 
                                 <div className="z-10">
                                     <div className="text-white/50 text-[10px] sm:text-xs uppercase tracking-widest font-mono">Now shipping</div>
-                                    <div className="mt-1 font-display text-xl text-white sm:text-2xl md:text-3xl">{c.name}</div>
+                                    <div className="mt-1 text-xl text-white sm:text-2xl md:text-3xl">{c.name}</div>
                                     <div className="mt-3 h-1 rounded-full bg-white/10 overflow-hidden">
                                         <motion.div
                                             initial={{ width: "20%" }}
