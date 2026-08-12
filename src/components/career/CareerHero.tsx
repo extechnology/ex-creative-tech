@@ -1,27 +1,10 @@
 import { motion } from "motion/react";
 import { Briefcase } from "lucide-react";
 import BasePageHero from "@/components/shared/BasePageHero";
+import LightRays from "../LightRays";
+import Scanner from "../Scanner";
 
 export default function CareerHero() {
-    const careerVisual = (
-        <div className="w-full relative mt-6 lg:mt-0">
-            <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.2 }}
-                className="relative rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl shadow-2xl group"
-            >
-                <div className="relative rounded-2xl overflow-hidden h-[340px] sm:h-[440px]">
-                    <img
-                        src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80"
-                        alt="EX-Creative Technology Team Culture"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/80 via-transparent to-transparent" />
-                </div>
-            </motion.div>
-        </div>
-    );
 
     return (
         <BasePageHero
@@ -44,12 +27,36 @@ export default function CareerHero() {
                 href: "#openings",
                 shadowClass: "shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]",
             }}
-            ambientGradients={{
-                mainBlobClass: "from-red-600/20 via-rose-600/25 to-orange-500/10",
-                topBlobClass: "bg-red-500/15",
-                bottomBlobClass: "bg-rose-600/15",
-            }}
-            rightVisual={careerVisual}
+            background={
+                <Scanner
+                    color1="#ed0029"
+                    color2="#EF4444"
+                    color3="#FFFFFF"
+                    speed={0.5}
+                    sweepSpeed={0.25}
+                    sweepWidth={2}
+                    sweepFalloff={6}
+                    scale={1.5}
+                    frequency={2}
+                    ripple={0.22}
+                    bandDensity={11}
+                    lineSharpness={5.5}
+                    glow={0.22}
+                    scanDirection="vertical"
+                    colorSpread={0.7}
+                    brightness={1}
+                    contrast={1.15}
+                    softness={1.4}
+                    vignette={0.45}
+                    scanline
+                    grain
+                    grainIntensity={0.05}
+                    opacity={1}
+                    mouseInteraction
+                    mouseRadius={0.5}
+                    mouseStrength={0.5}
+                />
+            }
         />
     );
 }

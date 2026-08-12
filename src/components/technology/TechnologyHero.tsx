@@ -1,27 +1,10 @@
-import { motion } from "motion/react";
 import { Sparkles } from "lucide-react";
 import BasePageHero from "@/components/shared/BasePageHero";
+import Strands from "../Strands";
+import WebThreads from "../WebThreads";
+
 
 export default function TechnologyHero() {
-  const techVisual = (
-    <div className="w-full relative mt-6 lg:mt-0">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 30 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.2 }}
-        className="relative rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl shadow-2xl group"
-      >
-        <div className="relative rounded-2xl overflow-hidden h-[340px] sm:h-[440px]">
-          <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80"
-            alt="EX-Creative Technology Team Workspace"
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/80 via-transparent to-transparent" />
-        </div>
-      </motion.div>
-    </div>
-  );
 
   return (
     <BasePageHero
@@ -42,18 +25,33 @@ export default function TechnologyHero() {
       primaryCta={{
         label: "Our Story",
         href: "#our-story",
-        shadowClass: "shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]",
       }}
-      secondaryCta={{
-        label: "View Work",
-        href: "#work",
-      }}
-      ambientGradients={{
-        mainBlobClass: "from-red-600/20 via-purple-600/25 to-indigo-600/10",
-        topBlobClass: "bg-red-500/15",
-        bottomBlobClass: "bg-purple-600/15",
-      }}
-      rightVisual={techVisual}
+      background={
+        <WebThreads
+          color1="#ca27ff"
+          color2="#FF9FFC"
+          color3="#cc2222"
+          speed={0.2}
+          threadCount={6}
+          frequency={5}
+          spread={0.18}
+          taper={1}
+          position={0.5}
+          fanMode="center"
+          glow={0.02}
+          falloff={0.6}
+          thickness={1.1}
+          brightness={0.6}
+          opacity={1}
+          mirror
+          shimmer={false}
+          grain
+          grainIntensity={0.05}
+          mouseInteraction
+          mouseStrength={0.3}
+        />
+      }
+
     />
   );
 }

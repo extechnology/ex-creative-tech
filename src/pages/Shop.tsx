@@ -22,9 +22,6 @@ export default function Shop() {
             <ProductsSection />
 
 
-            <ShopCTASection />
-
-
         </div>
 
     )
