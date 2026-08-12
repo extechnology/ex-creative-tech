@@ -1,27 +1,11 @@
 import { motion } from "motion/react";
 import { Cpu } from "lucide-react";
 import BasePageHero from "@/components/shared/BasePageHero";
+import MagicRings from "../MagicRings";
+import LightTunnel from "../LightTunnel";
 
 export default function CompanyHero() {
-  const companyVisual = (
-    <div className="w-full relative mt-6 lg:mt-0">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 30 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.2 }}
-        className="relative rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl shadow-2xl group"
-      >
-        <div className="relative rounded-2xl overflow-hidden h-[340px] sm:h-[440px]">
-          <img
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"
-            alt="EX-Creative Engineering & Capability Dashboard"
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/90 via-[#050505]/20 to-transparent" />
-        </div>
-      </motion.div>
-    </div>
-  );
+
 
   return (
     <BasePageHero
@@ -48,12 +32,38 @@ export default function CompanyHero() {
         label: "Start A Project",
         href: "/contact",
       }}
-      ambientGradients={{
-        mainBlobClass: "from-cyan-600/20 via-blue-600/25 to-sky-500/10",
-        topBlobClass: "bg-cyan-500/15",
-        bottomBlobClass: "bg-blue-600/15",
-      }}
-      rightVisual={companyVisual}
+      background={
+        <LightTunnel
+          cableColor="#00CFFF"
+          pulseColor="#00CFFF"
+          tunnelColor="#0066FF"
+          tunnelOpacity={0}
+          speed={0.1}
+          flowDirection="outward"
+          pulseSpeed={2}
+          pulseLength={0.28}
+          pulseBlend={1}
+          pulseWidth={1}
+          cableCount={20}
+          thickness={0.35}
+          rimWidth={0.15}
+          waviness={0.3}
+          sway={0.5}
+          size={1}
+          centerX={0}
+          centerY={0}
+          glow={1}
+          fadeNear={0.5}
+          fadeFar={2}
+          brightness={1}
+          colorVariance
+          grain
+          grainIntensity={0.05}
+          opacity={1}
+          mouseInteraction
+          mouseStrength={0.1}
+        />
+      }
     />
   );
 }

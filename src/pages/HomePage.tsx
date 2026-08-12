@@ -3,6 +3,8 @@ import PageLoader from "@/components/PageLoader";
 import HomeHero from "@/components/home/HomeHero";
 import Ticker from "@/components/home/Ticker";
 import PremiumHomePage from "@/components/home/PremiumHomePage";
+import GrowthJourney from "@/components/home/Growth";
+import CreativeCapabilities from "@/components/home/Creativecapabilities";
 
 
 export default function HomePage() {
@@ -17,6 +19,10 @@ export default function HomePage() {
       <HomeHero />
 
       <Ticker />
+
+      <GrowthJourney />
+
+      <CreativeCapabilities />
 
       <PremiumHomePage />
 

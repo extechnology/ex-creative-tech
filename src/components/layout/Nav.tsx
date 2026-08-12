@@ -217,7 +217,7 @@ export default function Nav() {
           <div className="flex items-center gap-3">
             <Link
               to="/contact"
-              className="hidden md:inline-flex items-center gap-1.5 text-xs font-semibold rounded-full px-5 py-2.5 bg-white text-black hover:opacity-85 transition"
+              className="hidden md:inline-flex items-center gap-1.5 text-xs font-semibold rounded-full px-5 py-2.5 bg-transparent border border-white text-white hover:bg-white hover:text-black transition"
               data-cursor="hover"
             >
               Submit Your Idea's <ArrowUpRight className="w-3.5 h-3.5" />

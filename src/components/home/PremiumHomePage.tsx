@@ -1145,7 +1145,7 @@ function FinalCTA() {
         >
           <MagneticButton
             href="/companies#ex-edu"
-            variant="creative"
+            variant="ghost"
             ariaLabel="Identify the Platform ↗"
             className="w-full max-w-[360px] sm:w-auto sm:max-w-none"
           >
@@ -1172,14 +1172,6 @@ function FinalCTA() {
 export default function PremiumHomePage() {
   return (
     <div className="relative isolate overflow-x-hidden bg-[#050505] text-white">
-      <GrowthJourney />
-
-      {/* Section Separator */}
-      <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-      </div>
-
-      <CapabilityJourney />
 
       <FinalCTA />
     </div>
