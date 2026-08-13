@@ -2,6 +2,17 @@ import { motion } from "motion/react";
 import { type ComponentType, type ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
 
+export interface BasePageHeroPalette {
+  /** Primary brand colour (used for --brand-a and --scroll-progress by default) */
+  a?: string;
+  b?: string;
+  c?: string;
+  /** Page background colour */
+  bg?: string;
+  /** Scroll-progress bar colour/gradient — falls back to `a` */
+  progress?: string;
+}
+
 export interface BasePageHeroProps {
   badge: {
     label: string;
@@ -33,6 +44,13 @@ export interface BasePageHeroProps {
    * Falls back to a plain dark background when omitted.
    */
   background?: ReactNode;
+  /**
+   * Optional brand-palette token overrides for this hero.
+   * When provided, the section gets data-palette-* attributes so
+   * ThemeSwapper can update the scroll progress bar and global brand
+   * colours as soon as the hero scrolls into view.
+   */
+  palette?: BasePageHeroPalette;
 }
 
 export default function BasePageHero({
@@ -42,6 +60,7 @@ export default function BasePageHero({
   primaryCta,
   secondaryCta,
   background,
+  palette,
 }: BasePageHeroProps) {
   const BadgeIcon = badge.icon;
 
@@ -64,8 +83,23 @@ export default function BasePageHero({
   // Cap the stagger so a long headline doesn't push the paragraph/CTAs out too far.
   const headingRevealTime = 0.1 + Math.min(headingSegments.length, 8) * 0.045;
 
+  // Spread data-palette-* attributes when a palette is provided
+  const paletteDataAttrs = palette
+    ? {
+        "data-palette": "",
+        "data-palette-a": palette.a,
+        "data-palette-b": palette.b,
+        "data-palette-c": palette.c,
+        "data-palette-bg": palette.bg,
+        "data-palette-progress": palette.progress ?? palette.a,
+      }
+    : {};
+
   return (
-    <section className="relative min-h-[100vh] flex items-center justify-center pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-[#050505] text-white">
+    <section
+      className="relative min-h-[100vh] flex items-center justify-center pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-[#050505] text-white"
+      {...paletteDataAttrs}
+    >
       {/* Background layer, supplied by the page */}
       {background && (
         <div className="absolute inset-0 z-0">

@@ -28,9 +28,12 @@ export default function CompanyHero() {
         href: "#companies",
         shadowClass: "shadow-[0_0_30px_rgba(0,229,255,0.25)] hover:shadow-[0_0_40px_rgba(0,229,255,0.45)]",
       }}
-      secondaryCta={{
-        label: "Start A Project",
-        href: "/contact",
+      palette={{
+        a: "#22d3ee",
+        b: "#38bdf8",
+        c: "#3b82f6",
+        bg: "#050505",
+        progress: "linear-gradient(90deg, #22d3ee 0%, #38bdf8 50%, #3b82f6 100%)",
       }}
       background={
         <LightTunnel

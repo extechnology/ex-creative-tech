@@ -27,6 +27,13 @@ export default function CareerHero() {
                 href: "#openings",
                 shadowClass: "shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]",
             }}
+            palette={{
+                a: "#f87171",
+                b: "#fb7185",
+                c: "#fb923c",
+                bg: "#050505",
+                progress: "linear-gradient(90deg, #ef4444 0%, #f87171 50%, #fb923c 100%)",
+            }}
             background={
                 <Scanner
                     color1="#ed0029"

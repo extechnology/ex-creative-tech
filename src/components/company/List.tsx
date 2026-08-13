@@ -248,7 +248,7 @@ function CompanySection({ c, index }: { c: Company; index: number }) {
 
                     <Reveal delay={0.65} className="mt-8">
                         <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-block">
-                            <MagneticButton>
+                            <MagneticButton variant="ghost">
                                 Visit {c.name} <ArrowUpRight className="w-4 h-4" />
                             </MagneticButton>
                         </a>

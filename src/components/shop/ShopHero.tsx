@@ -1,6 +1,5 @@
 import { Gem } from "lucide-react";
 import BasePageHero from "@/components/shared/BasePageHero";
-import GradientBlinds from "../GradientBlinds";
 import PrismaticBurst from "../PrismaticBurst";
 
 
@@ -24,6 +23,13 @@ export default function ShopHero() {
             primaryCta={{
                 label: "Browse Shop",
                 href: "#browse",
+            }}
+            palette={{
+                a: "#e879f9",
+                b: "#f472b6",
+                c: "#a855f7",
+                bg: "#050505",
+                progress: "linear-gradient(90deg, #e879f9 0%, #f472b6 50%, #a855f7 100%)",
             }}
             background={
                 <PrismaticBurst

@@ -11,26 +11,33 @@ export default function TechnologyHero() {
       badge={{
         label: "Technology",
         icon: Sparkles,
-        iconColorClass: "text-red-400",
-        dotGradientClass: "from-red-500 to-purple-500",
+        iconColorClass: "text-cyan-400",
+        dotGradientClass: "from-cyan-400 to-indigo-500",
       }}
       heading={{
         line1: "Your Goal Is The Vision.",
         whiteGradientText: "Technology Is The",
         line2: "Power",
         accentText: "Achieve It.",
-        accentGradientClass: "from-red-400 via-purple-400 to-indigo-400",
+        accentGradientClass: "from-cyan-400 via-sky-400 to-indigo-400",
       }}
-      description="Redefine through Web – Apps- CRM – Software – Automation"
+      description="Redefine through Web – Apps – CRM – Software – Automation"
       primaryCta={{
         label: "Our Story",
         href: "#our-story",
       }}
+      palette={{
+        a: "#35e0ff",
+        b: "#6d5efc",
+        c: "#a855f7",
+        bg: "#050505",
+        progress: "linear-gradient(90deg, #35e0ff 0%, #6d5efc 55%, #a855f7 100%)",
+      }}
       background={
         <WebThreads
-          color1="#ca27ff"
-          color2="#FF9FFC"
-          color3="#cc2222"
+          color1="#22D3EE"
+          color2="#38BDF8"
+          color3="#818CF8"
           speed={0.2}
           threadCount={6}
           frequency={5}
@@ -51,7 +58,6 @@ export default function TechnologyHero() {
           mouseStrength={0.3}
         />
       }
-
     />
   );
 }

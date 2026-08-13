@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import {
     ArrowUpRight,
     Code2,
@@ -10,17 +10,16 @@ import {
 } from "lucide-react";
 import { Reveal, MagneticButton } from "@/components/Reveal";
 
-/* ── Engineering-studio palette — cyan/blue "circuit" variant ───── */
+/* ── EX-MEDIA Crimson & Purple Brand Theme Palette ──────────────── */
 const PALETTE = {
-    a: "#22D3EE",
-    b: "#2563EB",
-    c: "#CFFAFE",
+    a: "#F43F5E", // EX-MEDIA Crimson Rose
+    b: "#E11D48", // EX-MEDIA Ruby Crimson
+    c: "#C084FC", // EX-MEDIA Bright Purple
+    d: "#9333EA", // EX-MEDIA Electric Deep Purple
     bg: "#04070C",
 } as const;
 
-/* ── The four studios, arranged as quadrants around a shared core ─
-   Positions are percentages of the visual's square container, so the
-   connector lines in the SVG line up with the tile centers. ────── */
+/* ── The four studios arranged as quadrants around the CPU core ─── */
 const STUDIOS: {
     icon: typeof Code2;
     label: string;
@@ -55,40 +54,75 @@ function StudioTile({
 
     return (
         <motion.div
-            className="absolute flex w-[38%] flex-col items-start gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-3.5 backdrop-blur-sm sm:w-[36%] sm:p-4"
-            style={{
-                left: `${x}%`,
-                top: `${y}%`,
-                transform: "translate(-50%, -50%)",
-            }}
+            initial={{ opacity: 0, scale: 0.9, y: 15 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.06, y: -6 }}
             animate={{
                 boxShadow: [
-                    "0 0 0px 0px transparent",
-                    `0 0 22px 1px ${p.a}55`,
-                    "0 0 0px 0px transparent",
+                    `0 0 16px -2px ${p.a}33, inset 0 0 10px ${p.a}15`,
+                    `0 0 32px 4px ${p.c}55, inset 0 0 18px ${p.c}25`,
+                    `0 0 16px -2px ${p.a}33, inset 0 0 10px ${p.a}15`,
+                ],
+                borderColor: [
+                    "rgba(255,255,255,0.14)",
+                    `${p.a}77`,
+                    "rgba(255,255,255,0.14)",
                 ],
             }}
             transition={{
-                duration: 3.2,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay,
+                boxShadow: { duration: 3.8, repeat: Infinity, ease: "easeInOut", delay },
+                borderColor: { duration: 3.8, repeat: Infinity, ease: "easeInOut", delay },
+                default: { duration: 0.6, delay: delay * 0.25 },
+            }}
+            className="absolute flex w-[44%] sm:w-[38%] flex-col items-start gap-2 rounded-2xl border bg-white/[0.05] p-3.5 sm:p-4.5 backdrop-blur-md transition-all duration-300 -translate-x-1/2 -translate-y-1/2 group cursor-pointer overflow-hidden"
+            style={{
+                left: `${x}%`,
+                top: `${y}%`,
             }}
         >
-            <div className="flex w-full items-center justify-between">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.05] sm:h-9 sm:w-9">
-                    <Icon
-                        className="h-4 w-4 text-white sm:h-4.5 sm:w-4.5"
-                        strokeWidth={1.75}
-                    />
+            {/* Ambient liquid glow backing inside card */}
+            <motion.div
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-10 rounded-full opacity-30 blur-2xl transition-opacity duration-500 group-hover:opacity-75"
+                style={{
+                    background: `radial-gradient(circle, ${p.a}66, ${p.c}44 60%, transparent 80%)`,
+                }}
+                animate={{
+                    scale: [0.85, 1.2, 0.85],
+                    opacity: [0.25, 0.55, 0.25],
+                }}
+                transition={{
+                    duration: 3.6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay,
+                }}
+            />
+
+            {/* Glowing border outline on hover */}
+            <div
+                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                    boxShadow: `0 0 28px 4px ${p.a}88, inset 0 0 20px ${p.c}44`,
+                    border: `1px solid ${p.a}`,
+                }}
+            />
+
+            <div className="relative z-10 flex w-full items-center justify-between">
+                <div
+                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.06] sm:h-9.5 sm:w-9.5 transition-colors duration-300 group-hover:bg-[#F43F5E]/25"
+                    style={{ color: p.a }}
+                >
+                    <Icon className="h-4 w-4 text-white sm:h-5 sm:w-5 transition-transform duration-300 group-hover:scale-110" strokeWidth={1.75} />
                 </div>
 
-                <span className="font-mono text-[10px] tracking-widest text-white/30">
+                <span className="font-mono text-[10px] tracking-widest text-white/40 group-hover:text-white/90">
                     {index}
                 </span>
             </div>
 
-            <span className="text-xs font-medium leading-tight text-white/85 sm:text-sm">
+            <span className="relative z-10 text-xs sm:text-sm font-semibold leading-tight text-white/90 group-hover:text-white">
                 {label}
             </span>
         </motion.div>
@@ -100,107 +134,133 @@ function StudioGrid({ palette }: { palette: typeof PALETTE }) {
 
     return (
         <div className="relative flex h-full w-full items-center justify-center">
-            <div className="relative aspect-square w-full max-w-[620px]">
-                {/* ── Connector lines — sync pulses running to the core ── */}
+            <div className="relative aspect-square w-full max-w-[580px]">
+                {/* ── Animated SVG Connector Lines with flowing pulses & light orbs ── */}
                 <svg
                     viewBox="0 0 100 100"
                     className="pointer-events-none absolute inset-0 h-full w-full"
                 >
                     <defs>
-                        <linearGradient
-                            id="syncStroke"
-                            x1="0"
-                            y1="0"
-                            x2="1"
-                            y2="1"
-                        >
+                        <linearGradient id="exMediaLineGrad" x1="0" y1="0" x2="1" y2="1">
                             <stop offset="0%" stopColor={p.a} />
-                            <stop offset="100%" stopColor={p.b} />
+                            <stop offset="50%" stopColor={p.c} />
+                            <stop offset="100%" stopColor={p.d} />
                         </linearGradient>
+                        <filter id="lineGlow">
+                            <feGaussianBlur stdDeviation="1.5" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
                     </defs>
 
                     {STUDIOS.map((s, i) => (
-                        <motion.line
-                            key={s.label}
-                            x1={s.x}
-                            y1={s.y}
-                            x2={50}
-                            y2={50}
-                            stroke="url(#syncStroke)"
-                            strokeWidth="0.6"
-                            strokeDasharray="2.5 3"
-                            opacity={0.55}
-                            animate={{
-                                strokeDashoffset: [0, -22],
-                            }}
-                            transition={{
-                                duration: 2.4,
-                                repeat: Infinity,
-                                ease: "linear",
-                                delay: i * 0.15,
-                            }}
-                        />
+                        <g key={s.label}>
+                            {/* Base track line */}
+                            <line
+                                x1={s.x}
+                                y1={s.y}
+                                x2={50}
+                                y2={50}
+                                stroke="rgba(255,255,255,0.12)"
+                                strokeWidth="0.8"
+                            />
+                            {/* Animated glowing dashed energy pulse */}
+                            <motion.line
+                                x1={s.x}
+                                y1={s.y}
+                                x2={50}
+                                y2={50}
+                                stroke="url(#exMediaLineGrad)"
+                                strokeWidth="1.6"
+                                strokeDasharray="4 4"
+                                filter="url(#lineGlow)"
+                                animate={{
+                                    strokeDashoffset: [0, -32],
+                                }}
+                                transition={{
+                                    duration: 1.8,
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                }}
+                            />
+                            {/* Traveling energy light orb gliding along the connector line */}
+                            <motion.circle
+                                r="1.5"
+                                fill={i % 2 === 0 ? p.a : p.c}
+                                filter="url(#lineGlow)"
+                                animate={{
+                                    cx: [s.x, 50, s.x],
+                                    cy: [s.y, 50, s.y],
+                                    opacity: [0.3, 1, 0.3],
+                                }}
+                                transition={{
+                                    duration: 3 + i * 0.4,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                    delay: i * 0.3,
+                                }}
+                            />
+                        </g>
                     ))}
                 </svg>
 
-                {/* ── Ambient particles ────────────────────────────────── */}
-                {[...Array(5)].map((_, i) => (
+                {/* ── Ambient Floating Particles ────────────────────────────── */}
+                {[...Array(6)].map((_, i) => (
                     <motion.span
                         key={i}
-                        className="absolute h-1 w-1 rounded-full"
+                        className="absolute h-1.5 w-1.5 rounded-full"
                         style={{
                             background: i % 2 === 0 ? p.a : p.c,
-                            left: `${18 + i * 16}%`,
-                            top: `${12 + ((i * 41) % 76)}%`,
-                            boxShadow: `0 0 8px 2px ${i % 2 === 0 ? p.a : p.c}`,
+                            left: `${18 + i * 14}%`,
+                            top: `${14 + ((i * 37) % 72)}%`,
+                            boxShadow: `0 0 10px 2px ${i % 2 === 0 ? p.a : p.c}`,
                         }}
                         animate={{
-                            y: [0, -10, 0],
-                            opacity: [0.15, 0.8, 0.15],
+                            y: [0, -12, 0],
+                            opacity: [0.2, 0.9, 0.2],
+                            scale: [0.8, 1.3, 0.8],
                         }}
                         transition={{
-                            duration: 4 + i,
+                            duration: 3.6 + i * 0.5,
                             repeat: Infinity,
                             ease: "easeInOut",
-                            delay: i * 0.4,
+                            delay: i * 0.3,
                         }}
                     />
                 ))}
 
-                {/* ── Central core — the "synchronized roof" ─────────── */}
+                {/* ── Central CPU Core Node ────────────────────────────────── */}
                 <div
-                    className="absolute flex h-14 w-14 items-center justify-center rounded-2xl sm:h-16 sm:w-16"
+                    className="absolute flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl -translate-x-1/2 -translate-y-1/2"
                     style={{
                         left: "50%",
                         top: "50%",
-                        transform: "translate(-50%, -50%)",
                     }}
                 >
                     <motion.div
                         className="absolute inset-0 rounded-2xl blur-xl"
                         style={{
-                            background: `radial-gradient(circle, ${p.a}bb, ${p.b}55 60%, transparent 75%)`,
+                            background: `radial-gradient(circle, ${p.a}dd, ${p.d}77 60%, transparent 80%)`,
                         }}
                         animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.7, 1, 0.7],
+                            scale: [1, 1.3, 1],
+                            opacity: [0.75, 1, 0.75],
                         }}
                         transition={{
-                            duration: 2.4,
+                            duration: 2.6,
                             repeat: Infinity,
                             ease: "easeInOut",
                         }}
                     />
 
-                    <div className="relative flex h-full w-full items-center justify-center rounded-2xl border border-white/15 bg-white/[0.06] backdrop-blur-md">
-                        <Cpu
-                            className="h-5 w-5 text-white sm:h-6 sm:w-6"
-                            strokeWidth={1.5}
-                        />
+                    <div className="relative flex h-full w-full items-center justify-center rounded-2xl border border-white/20 bg-white/[0.08] backdrop-blur-md shadow-[0_0_25px_rgba(244,63,94,0.35)]">
+                        <Cpu className="h-5 w-5 sm:h-6 sm:w-6 text-white" strokeWidth={1.5} />
                     </div>
                 </div>
 
-                {/* ── The four studio tiles ────────────────────────────── */}
+                {/* ── The Four Studio Quadrant Tiles ────────────────────────── */}
                 {STUDIOS.map((s, i) => (
                     <StudioTile
                         key={s.label}
@@ -236,15 +296,9 @@ export default function EngineeringStudiosSection({
     titleLine2 = "Platforms",
     tagline = "From concept to scale.",
     desc = "Four specialized studios under one synchronized roof. Full-stack engineering, 3D motion design, custom AI automation, and technical team bootcamps tailored for high-growth tech leaders.",
-    // TODO: swap these for your real numbers before shipping
-    stats = [
-        { value: "4", label: "Studios" },
-        { value: "99.9%", label: "Uptime SLA" },
-        { value: "120+", label: "Sprints Shipped" },
-    ],
     primaryCta = {
         label: "Explore the System",
-        href: "#exmedia-session",
+        href: "/companies#ex-media",
     },
     secondaryCta = {
         label: "Let's Confirm Identity",
@@ -277,11 +331,7 @@ export default function EngineeringStudiosSection({
         mass: 0.4,
     });
 
-    const y1 = useTransform(
-        smoothProgress,
-        [0, 1],
-        [80, -80]
-    );
+    const y1 = useTransform(smoothProgress, [0, 1], [40, -40]);
 
     return (
         <div
@@ -292,35 +342,32 @@ export default function EngineeringStudiosSection({
             data-palette-b={p.b}
             data-palette-c={p.c}
             data-palette-bg={p.bg}
-            className="relative flex items-center overflow-hidden scroll-mt-28 py-20 noise transition-colors duration-700 sm:py-14 md:py-16"
+            className="relative flex items-center overflow-hidden scroll-mt-28 py-20 noise transition-colors duration-700 sm:py-16 md:py-24"
             style={{
                 backgroundColor: p.bg,
-                contentVisibility: "auto",
-                containIntrinsicSize: "1200px",
             }}
         >
-            {/* ── Aurora background ──────────────────────────────────── */}
+            {/* ── EX-MEDIA Crimson/Purple Aurora background ─────────────── */}
             <div
-                className="aurora pointer-events-none absolute inset-0 opacity-75"
+                className="aurora pointer-events-none absolute inset-0 opacity-80"
                 style={{
                     background: `
             radial-gradient(
               45rem 32rem at 15% 25%,
-              ${p.a}30,
+              ${p.a}35,
               transparent 70%
             ),
             radial-gradient(
               40rem 30rem at 85% 75%,
-              ${p.b}30,
+              ${p.d}35,
               transparent 70%
             )
           `,
                 }}
             />
 
-
             {/* ── Main content ────────────────────────────────────────── */}
-            <div className="relative z-10 mx-auto grid w-[min(1200px,94vw)] grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-10">
+            <div className="relative z-10 mx-auto grid w-[min(1200px,94vw)] grid-cols-1 items-center gap-12 md:grid-cols-12 md:gap-10">
                 {/* ── Text side ─────────────────────────────────────────── */}
                 <div className="md:col-span-6">
                     <Reveal>
@@ -348,14 +395,14 @@ export default function EngineeringStudiosSection({
 
                     <Reveal
                         delay={0.4}
-                        className="mt-6 text-xl italic gradient-text sm:text-2xl md:text-4xl"
+                        className="mt-6 text-xl italic font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#F43F5E] via-[#C084FC] to-[#9333EA] sm:text-2xl md:text-4xl drop-shadow-[0_0_20px_rgba(244,63,94,0.3)]"
                     >
                         {tagline}
                     </Reveal>
 
                     <Reveal
                         delay={0.5}
-                        className="mt-5 max-w-xl text-sm leading-relaxed text-white/60 sm:text-base"
+                        className="mt-5 max-w-xl text-sm leading-relaxed text-white/65 sm:text-base"
                     >
                         {desc}
                     </Reveal>
@@ -368,19 +415,12 @@ export default function EngineeringStudiosSection({
                         {/* Primary CTA */}
                         <a
                             href={primaryCta.href}
-                            target={
-                                primaryCta.external ? "_blank" : undefined
-                            }
-                            rel={
-                                primaryCta.external
-                                    ? "noopener noreferrer"
-                                    : undefined
-                            }
+                            target={primaryCta.external ? "_blank" : undefined}
+                            rel={primaryCta.external ? "noopener noreferrer" : undefined}
                             className="inline-block"
                         >
                             <MagneticButton variant="ghost">
                                 {primaryCta.label}
-
                                 <ArrowUpRight className="h-4 w-4" />
                             </MagneticButton>
                         </a>
@@ -388,29 +428,21 @@ export default function EngineeringStudiosSection({
                         {/* Secondary CTA */}
                         <a
                             href={secondaryCta.href}
-                            target={
-                                secondaryCta.external ? "_blank" : undefined
-                            }
-                            rel={
-                                secondaryCta.external
-                                    ? "noopener noreferrer"
-                                    : undefined
-                            }
+                            target={secondaryCta.external ? "_blank" : undefined}
+                            rel={secondaryCta.external ? "noopener noreferrer" : undefined}
                             className="glass inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white/90 transition-colors duration-300 hover:bg-white/10 sm:w-auto"
                         >
                             {secondaryCta.label}
-
                             <ArrowUpRight className="h-4 w-4" />
                         </a>
                     </Reveal>
                 </div>
 
                 {/* ── Studio grid visual side ─────────────────────────────── */}
-                <div className="relative h-[340px] md:col-span-6 sm:h-[440px] md:h-[500px]">
+                <div className="relative h-[360px] sm:h-[440px] md:h-[500px] md:col-span-6">
                     <motion.div
                         style={{
                             y: y1,
-                            willChange: "transform",
                         }}
                         className="absolute inset-0"
                     >
