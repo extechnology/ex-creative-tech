@@ -1,6 +1,7 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 
 import Beams from "../Beams";
 import Logo from "@/components/shared/Logo";
@@ -18,6 +19,179 @@ const fadeUp = {
     y: 0,
   },
 };
+
+/**
+ * "Policies" pill that reveals Privacy Policy + Terms & Conditions
+ * in an animated popover on hover (desktop) or tap (touch devices).
+ */
+function PoliciesMenu() {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Close on outside click/tap — needed for the mobile tap-to-open behavior.
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const handleOutsideInteraction = (event: MouseEvent | TouchEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideInteraction);
+    document.addEventListener("touchstart", handleOutsideInteraction);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideInteraction);
+      document.removeEventListener("touchstart", handleOutsideInteraction);
+    };
+  }, [open]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        aria-expanded={open}
+        aria-haspopup="true"
+        className="
+          group
+          relative
+          inline-flex
+          items-center
+          gap-1.5
+          text-xs
+          font-medium
+          text-white/60
+          transition-colors
+          duration-300
+          hover:text-white
+          sm:text-sm
+        "
+      >
+        <span>Policies</span>
+
+        <ChevronDown
+          className={`
+            h-3.5 w-3.5
+            transition-transform
+            duration-300
+            ${open ? "-rotate-180 text-white" : "text-white/40"}
+          `}
+        />
+
+        <span
+          className="
+            absolute
+            -bottom-1
+            left-0
+            h-px
+            w-0
+            bg-white
+            transition-all
+            duration-300
+            group-hover:w-full
+          "
+          style={open ? { width: "100%" } : undefined}
+        />
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            role="menu"
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="
+              absolute
+              bottom-full
+              left-1/2
+              z-20
+              mb-3
+              w-48
+              -translate-x-1/2
+              overflow-hidden
+              rounded-xl
+              border
+              border-white/10
+              bg-black/80
+              shadow-xl
+              shadow-black/50
+              backdrop-blur-md
+            "
+          >
+            {/* Little pointer/caret matching the popover */}
+            <span
+              className="
+                absolute
+                -bottom-1.5
+                left-1/2
+                h-3
+                w-3
+                -translate-x-1/2
+                rotate-45
+                border-b
+                border-r
+                border-white/10
+                bg-black/80
+              "
+              aria-hidden="true"
+            />
+
+            <Link
+              to="/privacy-policy"
+              role="menuitem"
+              onClick={() => setOpen(false)}
+              className="
+                block
+                px-4
+                py-2.5
+                text-xs
+                text-white/60
+                transition-colors
+                duration-200
+                hover:bg-white/5
+                hover:text-white
+                sm:text-sm
+              "
+            >
+              Privacy Policy
+            </Link>
+
+            <span className="block h-px w-full bg-white/10" />
+
+            <Link
+              to="/terms"
+              role="menuitem"
+              onClick={() => setOpen(false)}
+              className="
+                block
+                px-4
+                py-2.5
+                text-xs
+                text-white/60
+                transition-colors
+                duration-200
+                hover:bg-white/5
+                hover:text-white
+                sm:text-sm
+              "
+            >
+              Terms & Conditions
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -213,48 +387,38 @@ export default function Footer() {
         {/* ============================================================
             BOTTOM ROW
 
-            Desktop:
-            Let's Connect | Privacy | Terms      Career | Updates      Copyright
+            Desktop / tablet:
+            [ spacer ] Let's Connect · Policies · Career · Updates [ Copyright ]
 
             Mobile:
-            Let's Connect | Privacy
-            Terms
-
-            Career | Updates
-
-            Copyright
+            Let's Connect · Policies · Career · Updates   (centered, wraps)
+            Copyright                                      (centered, below)
         ============================================================ */}
         <div className="pt-5 sm:pt-7">
-          <div
-            className="
-              flex
-              flex-col
-              gap-6
-              md:flex-row
-              md:items-center
-              md:justify-between
-            "
-          >
-            {/* ========================================================
-                LEFT
-                Let's Connect + Policies
-            ======================================================== */}
+          <div className="relative flex flex-col items-center justify-between gap-4 md:flex-row">
+            {/* Left invisible spacer so desktop flex balance works if needed */}
+            <div className="hidden md:block md:flex-1" />
+
+            {/* ============================================================
+                CENTER — absolutely centered on desktop to align with screen center & navbar center
+            ============================================================ */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              transition={{
-                duration: 0.6,
-              }}
+              transition={{ duration: 0.6 }}
               className="
                 flex
                 flex-wrap
                 items-center
                 justify-center
-                gap-x-5
+                gap-x-6
                 gap-y-3
-                md:justify-start
+                sm:gap-x-8
+                md:absolute
+                md:left-1/2
+                md:-translate-x-1/2
               "
             >
               {/* Let's Connect */}
@@ -265,12 +429,13 @@ export default function Footer() {
                   inline-flex
                   items-center
                   gap-1.5
-                  text-sm
+                  text-xs
                   font-medium
                   text-white/80
                   transition-colors
                   duration-300
                   hover:text-white
+                  sm:text-sm
                 "
               >
                 <span>Let&apos;s Connect</span>
@@ -291,57 +456,9 @@ export default function Footer() {
                 />
               </Link>
 
-              {/* Privacy Policy */}
-              <Link
-                to="/privacy-policy"
-                className="
-                  text-xs
-                  text-white/40
-                  transition-colors
-                  duration-300
-                  hover:text-white
-                  sm:text-sm
-                "
-              >
-                Privacy Policy
-              </Link>
+              {/* Policies (hover/tap popover with Privacy + Terms) */}
+              <PoliciesMenu />
 
-              {/* Terms & Conditions */}
-              <Link
-                to="/terms"
-                className="
-                  text-xs
-                  text-white/40
-                  transition-colors
-                  duration-300
-                  hover:text-white
-                  sm:text-sm
-                "
-              >
-                Terms & Conditions
-              </Link>
-            </motion.div>
-
-            {/* ========================================================
-                CENTER
-                Career + Updates
-            ======================================================== */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.6,
-                delay: 0.1,
-              }}
-              className="
-                flex
-                items-center
-                justify-center
-                gap-7
-              "
-            >
               {/* Career */}
               <Link
                 to="/careers"
@@ -351,13 +468,13 @@ export default function Footer() {
                   inline-flex
                   items-center
                   gap-1.5
-                  text-sm
+                  text-xs
                   font-medium
                   text-white/60
                   transition-colors
                   duration-300
                   hover:text-white
-                  sm:text-base
+                  sm:text-sm
                 "
               >
                 <span>Career</span>
@@ -400,13 +517,13 @@ export default function Footer() {
                   inline-flex
                   items-center
                   gap-1.5
-                  text-sm
+                  text-xs
                   font-medium
                   text-white/60
                   transition-colors
                   duration-300
                   hover:text-white
-                  sm:text-base
+                  sm:text-sm
                 "
               >
                 <span>Updates</span>
@@ -441,24 +558,16 @@ export default function Footer() {
               </Link>
             </motion.div>
 
-            {/* ========================================================
-                RIGHT
-                Copyright
-            ======================================================== */}
+            {/* ============================================================
+                RIGHT — Copyright
+            ============================================================ */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              transition={{
-                duration: 0.6,
-                delay: 0.15,
-              }}
-              className="
-                flex
-                justify-center
-                md:justify-end
-              "
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="md:flex-1 md:text-right"
             >
               <p
                 className="
@@ -470,7 +579,7 @@ export default function Footer() {
                   md:text-right
                 "
               >
-                © {year} EX-Creative & Technology
+                © {year} EX CREATIVE &amp; TECHNOLOGY
               </p>
             </motion.div>
           </div>

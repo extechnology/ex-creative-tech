@@ -68,14 +68,16 @@ export function MagneticButton({
   onClick,
   variant = "primary",
   href,
+  className = "",
 }: {
   children: ReactNode;
   onClick?: () => void;
   variant?: "primary" | "ghost";
   href?: string;
+  className?: string;
 }) {
   const base =
-    "relative inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 overflow-hidden group";
+    "relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 overflow-hidden group";
   const styles =
     variant === "primary"
       ? "bg-white text-black hover:opacity-85"
@@ -85,16 +87,18 @@ export function MagneticButton({
     <motion.span
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
-      className={`${base} ${styles}`}
+      className={`${base} ${styles} ${className}`}
       data-cursor="hover"
     >
       {children}
     </motion.span>
   );
 
-  if (!href) return <button onClick={onClick}>{inner}</button>;
+  const wrapperClass = className ? `inline-flex ${className}` : undefined;
+
+  if (!href) return <button onClick={onClick} className={wrapperClass}>{inner}</button>;
 
   const isExternal = href.startsWith("http") || href.startsWith("mailto") || href.startsWith("#");
-  if (isExternal) return <a href={href} onClick={onClick}>{inner}</a>;
-  return <Link to={href} onClick={onClick}>{inner}</Link>;
+  if (isExternal) return <a href={href} onClick={onClick} className={wrapperClass}>{inner}</a>;
+  return <Link to={href} onClick={onClick} className={wrapperClass}>{inner}</Link>;
 }

@@ -1,6 +1,5 @@
 import ShopHero from "@/components/shop/ShopHero"
 import ProductsSection from "@/components/shop/Product"
-import ShopCTASection from "@/components/shop/CtaShop"
 
 
 export default function Shop() {

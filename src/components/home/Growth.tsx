@@ -7,7 +7,7 @@ import {
     useTransform,
     type MotionValue,
     type Variants,
-} from "motion/react";
+} from "framer-motion";
 import {
     ArrowUpRight,
     Network,
@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
-/*  Types & default content                                            */
+/*  Types & default content (EX-MEDIA Logo Brand Theme)               */
 /* ------------------------------------------------------------------ */
 
 export type GrowthJourneyStep = {
@@ -39,8 +39,8 @@ const DEFAULT_STEPS: GrowthJourneyStep[] = [
         description:
             "Shape the vision, identity, and purpose that give your business a strong foundation.",
         icon: PenTool,
-        accent: "#fb7185",
-        glow: "rgba(251, 113, 133, 0.55)",
+        accent: "#E11D48", // EX-MEDIA Crimson Red
+        glow: "rgba(225, 29, 72, 0.55)",
     },
     {
         number: "02",
@@ -48,8 +48,8 @@ const DEFAULT_STEPS: GrowthJourneyStep[] = [
         description:
             "Build meaningful connections between your brand and the people who matter most.",
         icon: Network,
-        accent: "#c084fc",
-        glow: "rgba(192, 132, 252, 0.55)",
+        accent: "#FB7185", // EX-MEDIA Bright Coral Rose
+        glow: "rgba(251, 113, 133, 0.55)",
     },
     {
         number: "03",
@@ -57,8 +57,8 @@ const DEFAULT_STEPS: GrowthJourneyStep[] = [
         description:
             "Turn ideas into distinctive creative experiences that capture attention and build recognition.",
         icon: Sparkles,
-        accent: "#38bdf8",
-        glow: "rgba(56, 189, 248, 0.55)",
+        accent: "#D946EF", // EX-MEDIA Vibrant Magenta
+        glow: "rgba(217, 70, 239, 0.55)",
     },
     {
         number: "04",
@@ -66,8 +66,8 @@ const DEFAULT_STEPS: GrowthJourneyStep[] = [
         description:
             "Transform brand presence into sustainable business growth through continuous innovation and strategic evolution.",
         icon: Rocket,
-        accent: "#34d399",
-        glow: "rgba(52, 211, 153, 0.55)",
+        accent: "#9333EA", // EX-MEDIA Electric Deep Purple
+        glow: "rgba(147, 51, 234, 0.55)",
     },
 ];
 
@@ -75,7 +75,7 @@ const DEFAULT_MANIFESTO =
     "We transform ideas into opportunities, opportunities into strong foundations, and foundations into sustainable growth — empowering businesses to establish, evolve, innovate, and continuously move forward in an ever-changing market.";
 
 const EASE_OUT = [0.2, 0.8, 0.2, 1] as const;
-const VIEWPORT = { once: true, amount: 0.5 } as const;
+const VIEWPORT = { once: true, amount: 0.35 } as const;
 
 /* ------------------------------------------------------------------ */
 /*  Small local primitives                                             */
@@ -110,10 +110,10 @@ function Eyebrow({ children }: { children: ReactNode }) {
     return (
         <FadeIn y={14} className="flex justify-center">
             <div
-                className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-medium uppercase text-white/65 backdrop-blur-xl"
+                className="inline-flex items-center gap-3 rounded-full border border-[#F43F5E]/30 bg-[#E11D48]/10 px-4 py-2 text-[11px] font-semibold uppercase text-white/90 backdrop-blur-xl shadow-[0_0_20px_rgba(244,63,94,0.2)]"
                 style={{ letterSpacing: "0.14em" }}
             >
-                <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-rose-300 via-fuchsia-300 to-sky-300" />
+                <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-[#F43F5E] via-[#C084FC] to-[#9333EA]" />
                 <span>{children}</span>
             </div>
         </FadeIn>
@@ -121,8 +121,7 @@ function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Manifesto — the section's opening statement, revealed word by      */
-/*  word as it scrolls through the middle of the viewport.             */
+/*  Manifesto — Word-by-Word Scroll Reveal (EX-MEDIA Theme)           */
 /* ------------------------------------------------------------------ */
 
 function RevealWord({
@@ -135,22 +134,35 @@ function RevealWord({
     range: [number, number];
 }) {
     const prefersReducedMotion = useReducedMotion();
-    const opacity = useTransform(progress, range, [0.16, 1]);
+    const opacity = useTransform(progress, range, [0.15, 1]);
     const y = useTransform(progress, range, [14, 0]);
-    const blur = useTransform(progress, range, [3, 0]);
-    const filter = useTransform(blur, (v) => `blur(${v}px)`);
+    const scale = useTransform(progress, range, [0.95, 1]);
+
+    const isHighlight =
+        word.includes("transform") ||
+        word.includes("opportunities,") ||
+        word.includes("sustainable") ||
+        word.includes("growth") ||
+        word.includes("innovate,") ||
+        word.includes("forward");
 
     if (prefersReducedMotion) {
         return <span className="mr-[0.28em] inline-block">{word}</span>;
     }
 
     return (
-        <motion.span
-            style={{ opacity, y, filter }}
-            className="mr-[0.28em] inline-block will-change-transform"
-        >
-            {word}
-        </motion.span>
+        <span className="mr-[0.26em] my-[0.04em] inline-block whitespace-nowrap">
+            <motion.span
+                style={{ opacity, y, scale, display: "inline-block" }}
+                className={
+                    isHighlight
+                        ? "text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F43F5E] to-[#9333EA] font-semibold drop-shadow-[0_0_20px_rgba(244,63,94,0.4)]"
+                        : "text-white/90 font-medium"
+                }
+            >
+                {word}
+            </motion.span>
+        </span>
     );
 }
 
@@ -158,30 +170,34 @@ function Manifesto({ text }: { text: string }) {
     const ref = useRef<HTMLParagraphElement>(null);
     const { scrollYProgress } = useScroll({
         target: ref,
-        offset: ["start 92%", "start 32%"],
+        offset: ["start 75%", "end 50%"],
     });
     const words = useMemo(() => text.split(" "), [text]);
+    const total = words.length;
 
     return (
         <p
             ref={ref}
-            className="mx-auto max-w-5xl text-center font-sans text-[1.7rem] font-medium leading-[1.35] text-white sm:text-4xl sm:leading-[1.3] lg:text-[2.9rem] lg:leading-[1.28]"
+            className="mx-auto max-w-5xl text-center font-display text-xl font-medium leading-[1.35] text-white sm:text-3xl sm:leading-[1.3] lg:text-[2.7rem] lg:leading-[1.28]"
         >
-            {words.map((word, i) => (
-                <RevealWord
-                    key={`${word}-${i}`}
-                    word={word}
-                    progress={scrollYProgress}
-                    range={[i / words.length, Math.min(1, (i + 1.4) / words.length)]}
-                />
-            ))}
+            {words.map((word, i) => {
+                const start = (i / total) * 0.9;
+                const end = Math.min(1, start + (1 / total) * 1.8);
+                return (
+                    <RevealWord
+                        key={`${word}-${i}`}
+                        word={word}
+                        progress={scrollYProgress}
+                        range={[start, end]}
+                    />
+                );
+            })}
         </p>
     );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Ambient background — glow orbs, a quiet particle field, and a      */
-/*  pair of slow radar-style pings for texture.                        */
+/*  Ambient background field (EX-MEDIA Crimson & Purple Gradient Glow)*/
 /* ------------------------------------------------------------------ */
 
 const PARTICLES = Array.from({ length: 30 }, (_, i) => ({
@@ -230,8 +246,8 @@ function RadarPing({ className, accent }: { className: string; accent: string })
 
 function AmbientField({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
     const prefersReducedMotion = useReducedMotion();
-    const orbOneY = useTransform(scrollYProgress, [0, 1], [-50, 70]);
-    const orbTwoY = useTransform(scrollYProgress, [0, 1], [40, -80]);
+    const orbOneY = useTransform(scrollYProgress, [0, 1], [-40, 60]);
+    const orbTwoY = useTransform(scrollYProgress, [0, 1], [30, -60]);
 
     return (
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -246,16 +262,16 @@ function AmbientField({ scrollYProgress }: { scrollYProgress: MotionValue<number
 
             <motion.div
                 style={prefersReducedMotion ? undefined : { y: orbOneY }}
-                className="absolute -left-[12%] top-[4%] h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(251,113,133,0.18),transparent_70%)] blur-3xl"
+                className="absolute -left-[12%] top-[4%] h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(244,63,94,0.22),transparent_70%)] blur-3xl"
             />
             <motion.div
                 style={prefersReducedMotion ? undefined : { y: orbTwoY }}
-                className="absolute -right-[10%] bottom-[6%] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.16),transparent_70%)] blur-3xl"
+                className="absolute -right-[10%] bottom-[6%] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(147,51,234,0.20),transparent_70%)] blur-3xl"
             />
-            <div className="absolute left-1/2 top-1/2 h-[560px] w-[820px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(192,132,252,0.11),transparent_72%)] blur-3xl" />
+            <div className="absolute left-1/2 top-1/2 h-[560px] w-[820px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(225,29,72,0.12),transparent_72%)] blur-3xl" />
 
-            <RadarPing className="left-[4%] top-[10%] hidden sm:block" accent="#fb7185" />
-            <RadarPing className="right-[5%] bottom-[12%] hidden sm:block" accent="#38bdf8" />
+            <RadarPing className="left-[4%] top-[10%] hidden sm:block" accent="#F43F5E" />
+            <RadarPing className="right-[5%] bottom-[12%] hidden sm:block" accent="#9333EA" />
 
             {!prefersReducedMotion &&
                 PARTICLES.map((p, i) => (
@@ -272,22 +288,7 @@ function AmbientField({ scrollYProgress }: { scrollYProgress: MotionValue<number
 }
 
 /* ------------------------------------------------------------------ */
-/*  Node spine — measured from the real DOM.                           */
-/*                                                                     */
-/*  The line is built by measuring each badge's true center relative   */
-/*  to the track container with getBoundingClientRect, then drawing    */
-/*  a smooth path through those *real* pixel points, with the SVG      */
-/*  viewBox sized 1:1 with the container.                              */
-/*                                                                     */
-/*  IMPORTANT: node cards enter with a `whileInView` transform         */
-/*  animation (translateY + scale). Transform-only changes do NOT      */
-/*  fire ResizeObserver, so a purely mount-time measurement pass can   */
-/*  capture a card's *pre-animation* position for any node that is     */
-/*  still off-screen (or mid-animation) when the settle timers run —   */
-/*  that's why the spine used to stop short of steps 3 & 4. To fix     */
-/*  this we re-measure continuously while the user scrolls (throttled  */
-/*  to one calculation per animation frame) and again right after      */
-/*  each card's entrance animation finishes.                           */
+/*  Node spine — measured from DOM & updated for full line reach       */
 /* ------------------------------------------------------------------ */
 
 type SpinePoint = { x: number; y: number };
@@ -309,9 +310,6 @@ function buildSmoothPath(points: SpinePoint[]): string {
     return d;
 }
 
-/** Measures node badge centers relative to a track container and keeps
- *  the spine path in sync across resizes, breakpoint changes, scroll,
- *  and card entrance animations settling into place. */
 function useMeasuredSpine(trackRef: React.RefObject<HTMLDivElement | null>, count: number) {
     const nodeRefs = useRef<Array<HTMLElement | null>>([]);
     const [spine, setSpine] = useState<SpineData>(EMPTY_SPINE);
@@ -346,7 +344,6 @@ function useMeasuredSpine(trackRef: React.RefObject<HTMLDivElement | null>, coun
                 height: containerRect.height,
                 points,
             };
-            // Avoid redundant re-renders when nothing actually moved.
             if (prev.d === next.d && prev.width === next.width && prev.height === next.height) {
                 return prev;
             }
@@ -354,8 +351,6 @@ function useMeasuredSpine(trackRef: React.RefObject<HTMLDivElement | null>, coun
         });
     }, [trackRef]);
 
-    /** Throttled to one measurement per animation frame — safe to call
-     *  from high-frequency sources like scroll progress updates. */
     const remeasure = useCallback(() => {
         if (rafPending.current) return;
         rafPending.current = true;
@@ -371,9 +366,7 @@ function useMeasuredSpine(trackRef: React.RefObject<HTMLDivElement | null>, coun
 
         measure();
 
-        // Re-measure a few times while entrance animations settle, then
-        // rely on the observers/scroll hook for anything that happens later.
-        const settleTimers = [80, 260, 500, 900, 1500].map((delay) => window.setTimeout(measure, delay));
+        const settleTimers = [60, 200, 450, 800, 1200, 1800].map((delay) => window.setTimeout(measure, delay));
 
         const resizeObserver = new ResizeObserver(() => measure());
         resizeObserver.observe(track);
@@ -388,8 +381,7 @@ function useMeasuredSpine(trackRef: React.RefObject<HTMLDivElement | null>, coun
             window.removeEventListener("resize", measure);
             window.removeEventListener("orientationchange", measure);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [count, measure]);
+    }, [count, measure, trackRef]);
 
     return { registerNode, spine, remeasure };
 }
@@ -433,11 +425,12 @@ function GrowthSpine({
                 aria-hidden="true"
             >
                 <defs>
+                    {/* EX-MEDIA Crimson to Purple Brand Gradient */}
                     <linearGradient id="spine-gradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#fb7185" />
-                        <stop offset="34%" stopColor="#c084fc" />
-                        <stop offset="68%" stopColor="#38bdf8" />
-                        <stop offset="100%" stopColor="#34d399" />
+                        <stop offset="0%" stopColor="#E11D48" />
+                        <stop offset="33%" stopColor="#FB7185" />
+                        <stop offset="66%" stopColor="#D946EF" />
+                        <stop offset="100%" stopColor="#9333EA" />
                     </linearGradient>
                     <filter id="spine-glow" x="-60%" y="-20%" width="220%" height="140%">
                         <feGaussianBlur stdDeviation="8" result="blur" />
@@ -455,7 +448,7 @@ function GrowthSpine({
                     d={spine.d}
                     fill="none"
                     stroke="url(#spine-gradient)"
-                    strokeWidth={3.2}
+                    strokeWidth={3.5}
                     strokeLinecap="round"
                     filter="url(#spine-glow)"
                     style={{ pathLength: prefersReducedMotion ? 1 : drawn }}
@@ -475,7 +468,7 @@ function GrowthSpine({
                 )}
 
                 {spine.points.map((p, i) => (
-                    <circle key={i} cx={p.x} cy={p.y} r={4} fill="#050505" stroke="rgba(255,255,255,0.5)" strokeWidth={1.5} />
+                    <circle key={i} cx={p.x} cy={p.y} r={4} fill="#050505" stroke="rgba(255,255,255,0.6)" strokeWidth={1.5} />
                 ))}
             </svg>
 
@@ -484,8 +477,8 @@ function GrowthSpine({
                     className="pointer-events-none absolute left-0 top-0 z-20 -ml-2 -mt-2 h-4 w-4 rounded-full"
                     style={{
                         transform: cometStyle,
-                        background: "radial-gradient(circle, #fff 0%, rgba(255,255,255,0.4) 45%, transparent 75%)",
-                        boxShadow: "0 0 18px 6px rgba(255,255,255,0.55)",
+                        background: "radial-gradient(circle, #fff 0%, rgba(244,63,94,0.6) 45%, transparent 75%)",
+                        boxShadow: "0 0 18px 6px rgba(244,63,94,0.65)",
                     }}
                 />
             )}
@@ -494,7 +487,7 @@ function GrowthSpine({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Node card                                                          */
+/*  Node card (Decreased vertical spacing for compact flow)            */
 /* ------------------------------------------------------------------ */
 
 function GrowthNode({
@@ -520,25 +513,25 @@ function GrowthNode({
     const isRight = side === "right";
 
     const card: Variants = {
-        hidden: { opacity: 0, y: 48, scale: 0.96 },
-        show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: EASE_OUT } },
+        hidden: { opacity: 0, y: 40, scale: 0.96 },
+        show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.75, ease: EASE_OUT } },
     };
 
     return (
         <div
-            className={`relative flex min-h-[340px] items-center sm:min-h-[420px] lg:min-h-[560px] xl:min-h-[620px] ${isRight ? "lg:justify-end" : "lg:justify-start"
+            className={`relative flex min-h-[220px] items-center sm:min-h-[300px] lg:min-h-[380px] xl:min-h-[420px] ${isRight ? "lg:justify-end" : "lg:justify-start"
                 }`}
             onMouseEnter={onEnter}
             onMouseLeave={onLeave}
             onFocus={onEnter}
             onBlur={onLeave}
         >
-            {/* Soft focus wash behind the active node */}
+            {/* Soft focus wash behind active node */}
             <motion.div
                 aria-hidden="true"
                 animate={{ opacity: active ? 1 : 0 }}
                 transition={{ duration: 0.6, ease: EASE_OUT }}
-                className={`pointer-events-none absolute -inset-x-6 inset-y-6 -z-10 rounded-[3rem] blur-3xl ${isRight ? "" : ""}`}
+                className={`pointer-events-none absolute -inset-x-6 inset-y-6 -z-10 rounded-[3rem] blur-3xl`}
                 style={{ background: `radial-gradient(60% 60% at ${isRight ? "70%" : "30%"} 50%, ${step.glow}, transparent 72%)` }}
             />
 
@@ -548,15 +541,11 @@ function GrowthNode({
                 viewport={VIEWPORT}
                 variants={card}
                 tabIndex={0}
-                // The badge moves via transform during this entrance animation,
-                // which ResizeObserver can't see — re-measure the spine the
-                // moment it settles into its final position (and again on the
-                // next couple of frames to be safe against layout jitter).
                 onAnimationComplete={(definition) => {
                     if (definition === "show") {
                         onSettled();
                         requestAnimationFrame(onSettled);
-                        window.setTimeout(onSettled, 120);
+                        window.setTimeout(onSettled, 100);
                     }
                 }}
                 className={`group relative w-full max-w-xl outline-none lg:w-[88%] ${isRight ? "lg:pr-[6%] lg:text-right" : "lg:pl-[6%]"
@@ -566,7 +555,7 @@ function GrowthNode({
                     aria-hidden="true"
                     animate={{ color: active ? `${step.accent}33` : "rgba(255,255,255,0.05)" }}
                     transition={{ duration: 0.6 }}
-                    className={`pointer-events-none absolute -top-14 select-none font-sans text-[8rem] font-bold leading-none sm:-top-16 sm:text-[11rem] lg:-top-20 lg:text-[15rem] xl:text-[17rem] ${isRight ? "right-0" : "left-0"
+                    className={`pointer-events-none absolute -top-12 select-none font-sans text-[6rem] font-bold leading-none sm:-top-16 sm:text-[9rem] lg:-top-18 lg:text-[12rem] xl:text-[14rem] ${isRight ? "right-0" : "left-0"
                         }`}
                 >
                     {step.number}
@@ -582,7 +571,7 @@ function GrowthNode({
                             scale: active ? 1.06 : 1,
                         }}
                         transition={{ duration: 0.5, ease: EASE_OUT }}
-                        className="relative z-10 isolate flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] backdrop-blur-2xl backdrop-saturate-150 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+                        className="relative z-10 isolate flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-white/[0.07] backdrop-blur-2xl backdrop-saturate-150 sm:h-18 sm:w-18 lg:h-22 lg:w-22"
                         style={{ color: step.accent }}
                     >
                         {/* liquid-glass sheen */}
@@ -599,7 +588,7 @@ function GrowthNode({
                             className="pointer-events-none absolute inset-0 rounded-2xl"
                             style={{ background: `radial-gradient(120% 100% at 50% 120%, ${step.glow}, transparent 60%)`, opacity: 0.35 }}
                         />
-                        <Icon className="relative h-7 w-7 drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)] sm:h-8 sm:w-8 lg:h-10 lg:w-10" />
+                        <Icon className="relative h-6 w-6 drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)] sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
                     </motion.span>
 
                     <div
@@ -611,18 +600,18 @@ function GrowthNode({
                     </div>
                 </div>
 
-                <h3 className="relative mt-6 font-sans text-5xl font-semibold leading-[0.96] text-white sm:mt-7 sm:text-6xl lg:text-7xl xl:text-8xl">
+                <h3 className="relative mt-5 font-sans text-4xl font-semibold leading-[0.96] text-white sm:mt-6 sm:text-5xl lg:text-6xl xl:text-7xl">
                     {step.label}
                 </h3>
                 <p
-                    className={`relative mt-5 max-w-lg text-base leading-relaxed text-white/58 sm:mt-6 sm:text-lg lg:text-xl ${isRight ? "lg:ml-auto" : ""
+                    className={`relative mt-4 max-w-lg text-sm leading-relaxed text-white/60 sm:mt-5 sm:text-base lg:text-lg ${isRight ? "lg:ml-auto" : ""
                         }`}
                 >
                     {step.description}
                 </p>
 
                 <div
-                    className={`relative mt-6 flex items-center gap-2 text-xs font-medium uppercase text-white/30 transition-colors duration-300 group-hover:text-white/70 sm:mt-7 ${isRight ? "lg:justify-end" : ""
+                    className={`relative mt-5 flex items-center gap-2 text-xs font-medium uppercase text-white/30 transition-colors duration-300 group-hover:text-white/70 sm:mt-6 ${isRight ? "lg:justify-end" : ""
                         }`}
                     style={{ letterSpacing: "0.12em" }}
                 >
@@ -635,7 +624,7 @@ function GrowthNode({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Mobile-friendly simplified rail (straight line, single column)     */
+/*  Mobile-friendly rail (EX-MEDIA Gradient)                           */
 /* ------------------------------------------------------------------ */
 function MobileRail({ progress }: { progress: MotionValue<number> }) {
     const scaleY = useSpring(progress, { stiffness: 90, damping: 26, restDelta: 0.001 });
@@ -643,14 +632,14 @@ function MobileRail({ progress }: { progress: MotionValue<number> }) {
         <div className="absolute left-[27px] top-0 h-full w-px bg-white/10 sm:left-9 lg:hidden" aria-hidden="true">
             <motion.div
                 style={{ scaleY }}
-                className="h-full w-full origin-top bg-gradient-to-b from-rose-300 via-fuchsia-300 via-40% to-sky-300"
+                className="h-full w-full origin-top bg-gradient-to-b from-[#E11D48] via-[#FB7185] via-[#D946EF] to-[#9333EA]"
             />
         </div>
     );
 }
 
 /* ------------------------------------------------------------------ */
-/*  Active-node tracking (scroll-driven baseline, hover overrides it)  */
+/*  Active-node tracking                                              */
 /* ------------------------------------------------------------------ */
 function useScrollActiveIndex(progress: MotionValue<number>, count: number) {
     const [active, setActive] = useState(0);
@@ -681,15 +670,11 @@ export default function GrowthJourney({
     const trackRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: trackRef,
-        offset: ["start 70%", "end 40%"],
+        offset: ["start 75%", "end 85%"],
     });
 
     const { registerNode, spine, remeasure } = useMeasuredSpine(trackRef, steps.length);
 
-    // Keep the spine glued to the real badge positions for the whole time
-    // the track is being scrolled through — this is what actually closes
-    // the gap for the later nodes (steps 3 & 4), since their entrance
-    // animation runs mid-scroll rather than at mount time.
     useEffect(() => {
         const unsubscribe = scrollYProgress.on("change", () => remeasure());
         return () => unsubscribe();
@@ -704,10 +689,10 @@ export default function GrowthJourney({
             data-palette=""
             data-palette-a="#f5f5ff"
             data-palette-b="#c084fc"
-            data-palette-c="#fb7185"
-            data-palette-bg="#050505"
-            data-palette-progress="linear-gradient(90deg, #fb7185, #c084fc 50%, #38bdf8)"
-            className="relative overflow-hidden bg-[#050505] px-5 py-28 text-white sm:px-8 sm:py-32 lg:py-16"
+            data-palette-c="#f43f5e"
+            data-palette-bg="#04070c"
+            data-palette-progress="linear-gradient(90deg, #f43f5e, #c084fc 50%, #9333ea)"
+            className="relative overflow-hidden bg-[#04070C] px-5 py-24 text-white sm:px-8 sm:py-28 lg:py-20"
         >
             <AmbientField scrollYProgress={scrollYProgress} />
 
@@ -717,8 +702,7 @@ export default function GrowthJourney({
                     <Manifesto text={manifesto} />
                 </div>
 
-                <div ref={trackRef} className="relative mt-24 pl-16 sm:mt-16 sm:pl-20 lg:px-24">
-
+                <div ref={trackRef} className="relative mt-20 pl-16 sm:mt-16 sm:pl-20 lg:px-24">
                     <MobileRail progress={scrollYProgress} />
 
                     <div className="pointer-events-none absolute inset-0 hidden lg:block">
@@ -741,7 +725,6 @@ export default function GrowthJourney({
                         ))}
                     </div>
                 </div>
-
             </div>
         </section>
     );

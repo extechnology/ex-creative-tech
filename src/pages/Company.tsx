@@ -75,7 +75,7 @@ export default function CompanyPage() {
 
           {/* CTA buttons */}
           <Reveal delay={0.3} className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4">
-            <MagneticButton href="/contact">
+            <MagneticButton href="/contact" variant="ghost">
               Get Started <ArrowUpRight className="h-4 w-4" />
             </MagneticButton>
             <MagneticButton href="/about" variant="ghost">

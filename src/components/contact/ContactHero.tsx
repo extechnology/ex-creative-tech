@@ -24,6 +24,13 @@ export default function ContactHero() {
         href: "#contact-form",
         shadowClass: "shadow-[0_0_30px_rgba(0,230,118,0.25)] hover:shadow-[0_0_40px_rgba(0,230,118,0.45)]",
       }}
+      palette={{
+        a: "#34d399",
+        b: "#2dd4bf",
+        c: "#22d3ee",
+        bg: "#050505",
+        progress: "linear-gradient(90deg, #34d399 0%, #2dd4bf 50%, #22d3ee 100%)",
+      }}
       background={
         <GradientWaves
           horizonColor="#064E5B"

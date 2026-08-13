@@ -37,22 +37,22 @@ export default function PageLoader({ onDone }: { onDone?: () => void }) {
       initial={{ opacity: 1 }}
       animate={{ opacity: gone ? 0 : 1, y: gone ? "-100%" : 0 }}
       transition={{ duration: 0.8, ease: [0.7, 0, 0.2, 1] }}
-      className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-[#050505] noise"
+      className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-[#050505] noise px-6"
     >
       <div className="absolute inset-0 grid-bg opacity-40" />
       <motion.div
-        className="text-white text-6xl md:text-8xl tracking-tight"
+        className="text-white text-[clamp(1.5rem,5vw,5rem)] tracking-tight text-center whitespace-nowrap"
         initial={{ letterSpacing: "0.4em", opacity: 0 }}
         animate={{ letterSpacing: "0em", opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
       >
         EX Creative Technology<span className="text-white/30">/</span>
       </motion.div>
-      <div className="mt-10 h-[2px] w-56 md:w-80 bg-white/10 overflow-hidden rounded-full">
+      <div className="mt-10 h-[2px] w-full max-w-xs md:max-w-sm bg-white/10 overflow-hidden rounded-full">
         <motion.div className="h-full bg-white rounded-full" style={{ width: `${pct}%` }} />
       </div>
-      <div className="mt-4 font-mono text-[11px] text-white/40 tabular-nums">
-        {String(pct).padStart(3, "0")} / 100 - booting creative engine
+      <div className="mt-4 font-mono text-[11px] text-white/40 tabular-nums text-center">
+        {String(pct).padStart(3, "0")} / 100 — booting creative engine
       </div>
     </motion.div>
   );
