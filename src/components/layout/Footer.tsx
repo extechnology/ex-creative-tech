@@ -371,31 +371,22 @@ export default function Footer() {
         </motion.div>
 
         {/* ============================================================
-            DIVIDER
+            BOTTOM GROUP (DIVIDER + BOTTOM ROW TOGETHER)
         ============================================================ */}
-        <div
-          className="
-            h-px
-            w-full
-            bg-gradient-to-r
-            from-transparent
-            via-white/15
-            to-transparent
-          "
-        />
+        <div className="space-y-3">
+          <div
+            className="
+              h-px
+              w-full
+              bg-gradient-to-r
+              from-transparent
+              via-white/15
+              to-transparent
+            "
+          />
 
-        {/* ============================================================
-            BOTTOM ROW
-
-            Desktop / tablet:
-            [ spacer ] Let's Connect · Policies · Career · Updates [ Copyright ]
-
-            Mobile:
-            Let's Connect · Policies · Career · Updates   (centered, wraps)
-            Copyright                                      (centered, below)
-        ============================================================ */}
-        <div className="pt-5 sm:pt-7">
-          <div className="relative flex flex-col items-center justify-between gap-4 md:flex-row">
+          <div className="pt-3 sm:pt-4">
+            <div className="relative flex flex-col items-center justify-between gap-4 md:flex-row">
             {/* Left invisible spacer so desktop flex balance works if needed */}
             <div className="hidden md:block md:flex-1" />
 
@@ -585,6 +576,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
   );
 }

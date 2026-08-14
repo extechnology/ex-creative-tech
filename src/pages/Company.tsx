@@ -11,7 +11,7 @@ export default function CompanyPage() {
 
   return (
 
-    <div className="bg-[#050505] text-white selection:bg-cyan-500 selection:text-black overflow-x-hidden">
+    <div className="bg-[#050505] text-white selection:bg-[#D81B60] selection:text-white overflow-x-hidden">
 
       {/* 1. Hero Section */}
       <ComapnyHero />

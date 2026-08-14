@@ -327,8 +327,7 @@ function JobCard({
 
                         <button
                             onClick={onApply}
-                            className={`group/button inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r ${theme.gradient} px-5 py-3 text-sm font-semibold text-white transition-all duration-300 active:scale-[0.97] sm:w-auto`}
-                            style={{ boxShadow: `0 8px 30px ${theme.glow}` }}
+                            className="group/button inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-transparent px-5 py-3 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white hover:text-black active:scale-[0.97] sm:w-auto"
                         >
                             Apply Now
                             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/button:-translate-y-0.5 group-hover/button:translate-x-0.5" />
@@ -497,7 +496,7 @@ function SuccessState({
 
             <button
                 onClick={onDone}
-                className="mt-7 rounded-full bg-white px-7 py-3 text-sm font-semibold text-black transition-all hover:shadow-[0_0_30px_rgba(255,255,255,.2)] active:scale-95"
+                className="mt-7 rounded-full border border-white/20 bg-transparent px-7 py-3 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white hover:text-black active:scale-95"
             >
                 Done
             </button>
@@ -584,7 +583,7 @@ function ApplicationForm({
             <button
                 type="submit"
                 disabled={submitting}
-                className={`mt-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r ${theme.gradient} py-4 text-sm font-semibold text-white transition-all active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60`}
+                className="mt-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-white/20 bg-transparent py-4 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white hover:text-black active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
             >
                 {submitting ? (
                     <>

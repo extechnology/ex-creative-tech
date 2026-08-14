@@ -138,7 +138,7 @@ function BackgroundDecor() {
 function SectionHeader() {
     return (
         <div className="mb-8 sm:mb-12">
-            <h2 className="flex flex-nowrap items-baseline gap-x-[0.24em] whitespace-nowrap text-[clamp(1.6rem,7.2vw,4rem)] font-bold leading-[0.98] tracking-[-0.045em] text-white">
+            <h2 className="flex flex-nowrap items-baseline gap-x-[0.24em] whitespace-nowrap text-[clamp(1.3rem,7.2vw,3rem)] font-bold leading-[0.98] tracking-[-0.045em] text-white">
                 {HEADLINE_WORDS.map((word, i) => (
                     <motion.span
                         key={word}
