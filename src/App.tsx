@@ -2,17 +2,19 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import RootLayout from "@/layouts/RootLayout";
 import PageLoader from "@/components/PageLoader";
-import ScrollToTop from "@/components/shared/ScrollToTop";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 
 
 /* ── Lazy-loaded pages ─────────────────────────────────────── */
-const HomePage    = lazy(() => import("@/pages/HomePage"));
-const TechnologyPage   = lazy(() => import("@/pages/Technology"));
+const HomePage = lazy(() => import("@/pages/Index"));
+const CreativePage    = lazy(() => import("@/pages/Creative"));
+const TechnologyPage   = lazy(() => import("@/pages/Technology"));  
 const CompanyPage = lazy(() => import("@/pages/Company"));
 const Shop = lazy(()=> import("@/pages/Shop"))
 const Career = lazy(()=> import("@/pages/Career"))
 const ContactPage = lazy(() => import("@/pages/ContactPage"));
+const UpdatesPage = lazy(() => import("@/pages/Updates"));
 
 
 
@@ -44,12 +46,14 @@ export default function App() {
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route element={<RootLayout />}>
-            <Route path="/"         element={<HomePage />} />
+            <Route path="/"         element={<HomePage />} />  
+            <Route path="/creative"         element={<CreativePage />} /> 
             <Route path="/technology"    element={<TechnologyPage />} />
             <Route path="/companies" element={<CompanyPage />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/careers" element={<Career />} />
             <Route path="/contact"  element={<ContactPage />} />
+            <Route path="/updates" element={<UpdatesPage />} />
             <Route path="*"         element={<NotFound />} />
           </Route>
         </Routes>

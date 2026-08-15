@@ -1,5 +1,5 @@
 import { MessageSquare } from "lucide-react";
-import BasePageHero from "@/components/shared/BasePageHero";
+import BasePageHero from "@/components/layout/BasePageHero";
 import GradientWaves from "../GradientWaves";
 
 export default function ContactHero() {

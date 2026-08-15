@@ -34,11 +34,8 @@ function EyebrowBadge({ children }: { children: React.ReactNode }) {
     );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Home CTA Section (EX EDU Logo Brand Theme)                        */
-/* ------------------------------------------------------------------ */
 
-export default function HomeCta() {
+export default function CreativeCta() {
     return (
         <section
             data-palette=""

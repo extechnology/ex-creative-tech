@@ -5,7 +5,7 @@ import Footer, { FOOTER_HEIGHT } from "@/components/layout/Footer";
 import { Cursor } from "@/components/Cursor";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ThemeSwapper } from "@/components/ThemeSwapper";
-import ScrollProgress from "@/components/shared/ScrollProgress";
+import ScrollProgress from "@/components/layout/ScrollProgress";
 
 export default function RootLayout() {
   const location = useLocation();
