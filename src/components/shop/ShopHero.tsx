@@ -1,5 +1,5 @@
 import { Gem } from "lucide-react";
-import BasePageHero from "@/components/shared/BasePageHero";
+import BasePageHero from "@/components/layout/BasePageHero";
 import PrismaticBurst from "../PrismaticBurst";
 
 

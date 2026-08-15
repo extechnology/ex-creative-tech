@@ -1,6 +1,10 @@
 import TechnologyHero from "@/components/technology/TechnologyHero";
 import TechPlatform from "@/components/technology/TechPlatform";
 import TechnologyQuoteCtaSection from "@/components/technology/TechQcta";
+import MessagingPipeline from "@/components/technology/TechMessaging";
+import CTASection from "@/components/technology/AgencyCTA";
+
+
 
 export default function TechnologyPage() {
 
@@ -28,7 +32,11 @@ export default function TechnologyPage() {
 
 
       {/* 4. Message Flow Section */}
-      {/* <MessageFlowSection /> */}
+      <MessagingPipeline />
+
+
+      {/* 5. Agency CTA Section */}
+      <CTASection />
 
 
     </div>

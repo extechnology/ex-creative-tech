@@ -1,92 +1,250 @@
-import { motion } from "motion/react";
-import { ArrowUpRight, Sparkles, Mail } from "lucide-react";
-import Strands from "../Strands";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import GradientWaves from "../GradientWaves";
 
-export default function AgencyCTA() {
+/* ------------------------------------------------------------------ */
+/* Theme — matched to TechnologyHero                                  */
+/* ------------------------------------------------------------------ */
+
+const THEME = {
+  cyan: "#35e0ff",
+  blue: "#6d5efc",
+  purple: "#a855f7",
+  background: "#050505",
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* Content                                                            */
+/* ------------------------------------------------------------------ */
+
+const CONTENT = {
+  badge: "Automate & Scale",
+  headingLine1: "Personalized Messaging,",
+  headingLine2: "Powered by Automation.",
+  description:
+    "Deliver personalized communication at scale with intelligent automation that engages customers, strengthens relationships, and drives growth.",
+  primaryCta: {
+    label: "Initiate the Action",
+    href: "/companies#ex-edu",
+  },
+  secondaryCta: {
+    label: "Automate Your Message",
+    href: "https://exedu.in",
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* CTA Button                                                         */
+/* ------------------------------------------------------------------ */
+
+function PillButton({
+  label,
+  href,
+  variant,
+}: {
+  label: string;
+  href: string;
+  variant: "solid" | "outline";
+}) {
+  const isExternal = href.startsWith("http");
+
+  return (
+    <motion.a
+      href={href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className={[
+        "inline-flex w-full items-center justify-center rounded-full px-6 py-3.5",
+        "text-[14px] font-semibold tracking-wide transition-all duration-300",
+        "sm:w-auto sm:px-7 sm:text-[15px]",
+        variant === "solid"
+          ? "text-[#050505] shadow-[0_10px_30px_-8px_rgba(53,224,255,0.55)]"
+          : "border border-white/15 bg-white/[0.025] text-slate-100 backdrop-blur-sm hover:border-[#35e0ff]/40 hover:bg-[#35e0ff]/[0.06]",
+      ].join(" ")}
+      style={
+        variant === "solid"
+          ? {
+            background: `linear-gradient(
+                120deg,
+                ${THEME.cyan} 0%,
+                ${THEME.blue} 55%,
+                ${THEME.purple} 100%
+              )`,
+          }
+          : undefined
+      }
+    >
+      {label}
+    </motion.a>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Main CTA Section                                                   */
+/* ------------------------------------------------------------------ */
+
+export default function CTASection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const inView = useInView(sectionRef, {
+    once: true,
+    amount: 0.25,
+  });
+
   return (
     <section
-      id="contact"
-      className="py-16 md:py-24 px-5 lg:px-8 max-w-7xl mx-auto text-white relative overflow-hidden"
-      data-palette=""
-      data-palette-a="#f97316"
-      data-palette-b="#7c3aed"
-      data-palette-c="#06b6d4"
-      data-palette-bg="#050505"
-      data-palette-progress="linear-gradient(90deg, #f97316 0%, #7c3aed 55%, #06b6d4 100%)"
+      ref={sectionRef}
+      className="relative isolate flex w-full items-center overflow-hidden py-20 sm:py-24 lg:py-24"
+      style={{ background: THEME.background }}
     >
-      {/* Strands Animated WebGL Canvas Background */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none opacity-85"
-        style={{ width: "100%", height: "100%" }}
-      >
-        <Strands
-          colors={["#F97316", "#7C3AED", "#06B6D4"]}
-          count={3}
-          speed={0.5}
-          amplitude={1}
-          waviness={1}
-          thickness={0.7}
-          glow={2.6}
-          taper={3}
-          spread={1}
-          intensity={0.6}
-          saturation={2}
+      {/* ------------------------------------------------------------ */}
+      {/* Gradient Waves Background                                    */}
+      {/* ------------------------------------------------------------ */}
+
+      <div className="absolute inset-0 -z-20">
+        <GradientWaves
+          horizonColor="#02070A"
+          waveColor="#006B8F"
+          crestColor="#00D9FF"
+          speed={0.4}
+          amplitude={2.5}
+          waveScale={0.6}
+          waveRatio={0.9}
+          swell={35}
+          turbulence={20}
+          tilt={1.11}
+          zoom={1}
+          height={5.5}
+          fogDepth={15}
+          detail="medium"
+          brightness={1}
           opacity={1}
-          scale={1.5}
-          glass={false}
-          refraction={1}
-          dispersion={1}
-          glassSize={1}
-          hueShift={0}
+          mouseInteraction
+          parallaxStrength={0.5}
+          grain
+          grainIntensity={0.05}
         />
       </div>
 
-    
+      {/* ------------------------------------------------------------ */}
+      {/* Subtle Gradient Overlay                                      */}
+      {/* ------------------------------------------------------------ */}
 
-      {/* Glass Container Card (MINIMAL BORDER as requested) */}
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 rounded-3xl border sm:rounded-[40px] bg-[#090a0f]/40 backdrop-blur-sm p-8 sm:p-14 md:p-16 text-center shadow-2xl overflow-hidden"
-      >
-        <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-white/80 font-medium">
-            <Sparkles className="w-3.5 h-3.5 text-red-400 animate-pulse" />
-            <span>Start Your Journey</span>
-          </div>
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-40"
+        style={{
+          background: `
+            radial-gradient(
+              circle at 50% 45%,
+              ${THEME.cyan}18 0%,
+              ${THEME.blue}10 35%,
+              transparent 70%
+            )
+          `,
+        }}
+      />
 
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight font-sans">
-           Technology Ensures Quality &{" "}
-            <span className="bg-gradient-to-r from-red-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent italic font-serif font-normal">
-              Zero-Error Delivery
-            </span>
-          </h2>
+      {/* ------------------------------------------------------------ */}
+      {/* Content                                                      */}
+      {/* ------------------------------------------------------------ */}
 
-          <p className="text-sm sm:text-base text-white/65 leading-relaxed max-w-xl mx-auto font-normal">
-            Whether you need a ground-up digital product, a WebGL experience, or a complete brand transformation — let's make it happen.
-          </p>
+      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center px-5 text-center sm:px-8">
+        {/* Badge */}
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
-            <a
-              href="/contact"
-              className="group relative inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-red-500 via-purple-600 to-indigo-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(239,68,68,0.4)] hover:shadow-[0_0_35px_rgba(239,68,68,0.7)] transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
-            >
-              <span>Submit Your Idea's</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
+        <motion.span
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{
+            duration: 0.6,
+            ease: [0.2, 0.7, 0.2, 1],
+          }}
+          className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#35e0ff]/25 bg-[#35e0ff]/[0.05] px-4 py-[7px] text-[11px] font-semibold uppercase tracking-[0.16em] text-[#35e0ff] sm:text-[12px]"
+        >
+          <span
+            className="h-1.5 w-1.5 rounded-full"
+            style={{
+              background: THEME.cyan,
+              boxShadow: `0 0 8px 2px ${THEME.cyan}99`,
+            }}
+          />
 
-            <a
-              href="mailto:contact@excreative.tech"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-white font-medium text-xs sm:text-sm backdrop-blur-md transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
-            >
-              <Mail className="w-4 h-4 text-purple-400" />
-              <span>Contact Us</span>
-            </a>
-          </div>
-        </div>
-      </motion.div>
+          {CONTENT.badge}
+        </motion.span>
+
+        {/* Heading */}
+
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{
+            duration: 0.75,
+            delay: 0.1,
+            ease: [0.2, 0.7, 0.2, 1],
+          }}
+          className="max-w-4xl text-[32px] font-extrabold leading-[1.12] tracking-tight text-slate-50 sm:text-[46px] lg:text-[58px]"
+        >
+          {CONTENT.headingLine1}
+
+          <br />
+
+          <span
+            className="bg-clip-text italic text-transparent"
+            style={{
+              backgroundImage: `linear-gradient(
+                90deg,
+                ${THEME.cyan} 0%,
+                ${THEME.blue} 55%,
+                ${THEME.purple} 100%
+              )`,
+            }}
+          >
+            {CONTENT.headingLine2}
+          </span>
+        </motion.h2>
+
+        {/* Description */}
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{
+            duration: 0.7,
+            delay: 0.2,
+            ease: [0.2, 0.7, 0.2, 1],
+          }}
+          className="mx-auto mt-5 max-w-2xl text-[14.5px] leading-relaxed text-slate-400 sm:mt-6 sm:text-[16px]"
+        >
+          {CONTENT.description}
+        </motion.p>
+
+        {/* CTA Buttons */}
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{
+            duration: 0.7,
+            delay: 0.3,
+            ease: [0.2, 0.7, 0.2, 1],
+          }}
+          className="mt-8 flex w-full max-w-md flex-col items-center gap-3 sm:mt-9 sm:w-auto sm:max-w-none sm:flex-row sm:justify-center sm:gap-4"
+        >
+          <PillButton
+            label={CONTENT.primaryCta.label}
+            href={CONTENT.primaryCta.href}
+            variant="outline"
+          />
+
+          <PillButton
+            label={CONTENT.secondaryCta.label}
+            href={CONTENT.secondaryCta.href}
+            variant="outline"
+          />
+        </motion.div>
+      </div>
     </section>
   );
 }

@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Cpu } from "lucide-react";
-import BasePageHero from "@/components/shared/BasePageHero";
+import BasePageHero from "@/components/layout/BasePageHero";
 import MagicRings from "../MagicRings";
 import LightTunnel from "../LightTunnel";
 

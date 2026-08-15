@@ -1,5 +1,5 @@
 import { Sparkles } from "lucide-react";
-import BasePageHero from "@/components/shared/BasePageHero";
+import BasePageHero from "@/components/layout/BasePageHero";
 import Strands from "../Strands";
 import WebThreads from "../WebThreads";
 

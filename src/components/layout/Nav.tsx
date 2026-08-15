@@ -2,12 +2,12 @@ import { useState, useEffect, type CSSProperties } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowUpRight, ChevronDown, ArrowRight } from "lucide-react";
-import Logo from "@/components/shared/Logo";
+import Logo from "@/components/layout/Logo";
 
 
 // Nav items
 const NAV_LINKS = [
-  { href: "/", label: "Creative" },
+  { href: "/creative", label: "Creative" },
   { href: "/technology", label: "Technology" },
   { href: "/companies", label: "Companies" },
   { href: "/shop", label: "Shop" },

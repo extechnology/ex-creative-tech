@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Briefcase } from "lucide-react";
-import BasePageHero from "@/components/shared/BasePageHero";
+import BasePageHero from "@/components/layout/BasePageHero";
 import LightRays from "../LightRays";
 import Scanner from "../Scanner";
 
