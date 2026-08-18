@@ -47,7 +47,7 @@ export default function App() {
         <Routes>
           <Route element={<RootLayout />}>
             <Route path="/"         element={<HomePage />} />  
-            <Route path="/creative"         element={<CreativePage />} /> 
+            <Route path="/creative"   element={<CreativePage />} /> 
             <Route path="/technology"    element={<TechnologyPage />} />
             <Route path="/companies" element={<CompanyPage />} />
             <Route path="/shop" element={<Shop />} />
