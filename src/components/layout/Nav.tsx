@@ -16,25 +16,25 @@ const NAV_LINKS = [
 const COMPANY_LINKS = [
   {
     href: "/companies#ex-media",
-    label: "ex-media",
+    label: "ex media",
     logo: "/ex-media-logo.png",
     accent: "#D81B60",
   },
   {
     href: "/companies#ex-technology",
-    label: "ex-technology",
+    label: "ex technology",
     logo: "/ex-tech-logo.png",
     accent: "#00E5FF",
   },
   {
     href: "/companies#ex-edu",
-    label: "ex-edu",
+    label: "ex edu",
     logo: "/ex-edu-logo.png",
     accent: "#A855F7",
   },
   {
     href: "/companies#ex-bot",
-    label: "ex-bot",
+    label: "ex bot",
     logo: "/ex-bot-logo.png",
     accent: "#25D366",
   },

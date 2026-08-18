@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
-
 import Beams from "../Beams";
 import Logo from "@/components/layout/Logo";
+
 
 export const FOOTER_HEIGHT = 620;
 
@@ -163,7 +163,7 @@ export default function Footer() {
 
   const links = [
     {
-      to: "/creative",
+      to: "creative",
       label: "Creative",
     },
     {
@@ -193,8 +193,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="fixed inset-x-0 bottom-0 z-0 overflow-hidden bg-black"
-      style={{ height: FOOTER_HEIGHT }}
+      className="fixed inset-x-0 bottom-0 z-0 overflow-hidden bg-black h-[480px] sm:h-[540px] lg:h-[620px]"
     >
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden bg-black">
@@ -217,7 +216,7 @@ export default function Footer() {
       </div>
 
       {/* Main Footer Content */}
-      <div className="relative mx-auto flex h-full w-[min(1400px,92vw)] flex-col justify-between pt-6 pb-3 sm:pt-8 sm:pb-3">
+      <div className="relative mx-auto flex h-full w-[min(1400px,92vw)] flex-col justify-between pt-6 pb-[max(1rem,env(safe-area-inset-bottom))] sm:pt-8 sm:pb-4">
         {/* Top Row */}
         <div className="flex items-start justify-between gap-4">
           {/* Logo */}
@@ -231,7 +230,7 @@ export default function Footer() {
             }}
           >
             <Logo
-              imageClassName="h-14 w-auto max-w-[240px] object-contain sm:h-20 sm:max-w-[300px] md:h-28 md:max-w-[340px]"
+              imageClassName="h-10 w-auto max-w-[180px] object-contain sm:h-16 sm:max-w-[260px] md:h-24 md:max-w-[320px]"
             />
           </motion.div>
 
@@ -340,7 +339,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <div className="pt-3">
-            <div className="relative flex items-center justify-end">
+            <div className="relative flex items-center justify-center sm:justify-end">
               <motion.div
                 variants={fadeUp}
                 initial="hidden"
@@ -351,7 +350,7 @@ export default function Footer() {
                   delay: 0.15,
                 }}
               >
-                <p className="whitespace-nowrap text-xs text-white/40 sm:text-sm">
+                <p className="whitespace-nowrap text-xs text-white/40 sm:text-xs tracking-wide">
                   © {year} EX CREATIVE &amp; TECHNOLOGY
                 </p>
               </motion.div>

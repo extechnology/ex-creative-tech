@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "motion/react";
 import Nav from "@/components/layout/Nav";
-import Footer, { FOOTER_HEIGHT } from "@/components/layout/Footer";
+import Footer from "@/components/layout/Footer";
+import CompactFooter from "@/components/layout/CompactFooter";
 import { Cursor } from "@/components/Cursor";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ThemeSwapper } from "@/components/ThemeSwapper";
@@ -9,6 +9,7 @@ import ScrollProgress from "@/components/layout/ScrollProgress";
 
 export default function RootLayout() {
   const location = useLocation();
+  const isHome = location.pathname === "/";
 
   return (
     <div className="relative bg-[color:var(--color-background)] text-white overflow-x-hidden transition-colors duration-700">
@@ -19,25 +20,25 @@ export default function RootLayout() {
       <ScrollProgress />
       <Nav />
 
-      <main
-        className="relative z-10 bg-[color:var(--color-background)] min-h-screen transition-colors duration-700"
-        style={{ marginBottom: FOOTER_HEIGHT }}
-      >
-        <AnimatePresence initial={false} mode="popLayout">
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
-          >
+      {isHome ? (
+        <>
+          <main className="relative z-10 bg-[color:var(--color-background)] min-h-screen transition-colors duration-700 mb-[480px] sm:mb-[540px] lg:mb-[620px]">
             <Outlet />
-          </motion.div>
-        </AnimatePresence>
-      </main>
+          </main>
 
-      {/* Fixed footer — rendered below main, appears as parallax reveal */}
-      <Footer />
+          {/* Fixed footer — rendered below main, appears as parallax reveal */}
+          <Footer />
+        </>
+      ) : (
+        <div className="relative z-10 bg-[color:var(--color-background)] min-h-screen flex flex-col justify-between transition-colors duration-700">
+          <main className="flex-1 w-full">
+            <Outlet />
+          </main>
+
+          {/* Sticky compact footer for all other pages */}
+          <CompactFooter />
+        </div>
+      )}
     </div>
   );
 }
